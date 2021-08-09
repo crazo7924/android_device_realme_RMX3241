@@ -15,6 +15,6 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/aosp_RMX2001.mk
+    $(LOCAL_DIR)/aosp_RMX3241.mk
 
 COMMON_LUNCH_CHOICES := aosp_RMX3241-eng
