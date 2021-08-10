@@ -1,0 +1,151 @@
+on init
+    #Shuangquan.Du@PSW.AD.Recovery.0, 2018/07/21, Add for usb otg
+    mkdir /usb_otg
+
+    #Fangfang.Hui@PSW.AD.Ota.1122242, 2016/08/15, Add for check and autorepair ext4 filesystem partitions in recovery mode
+    exec /sbin/e2fsck -y /dev/block/platform/mtk-msdc.0/by-name/cache
+    exec /sbin/e2fsck -y /dev/block/platform/mtk-msdc.0/by-name/userdata
+
+    #mount ext4 /dev/block/bootdevice/by-name/userdata /data rw
+    setprop persist.sys.firstlaunch false
+
+    #ifndef VENDOR_EDIT
+    #Yang.Li@ANDROID.STORAGE, 2017/12/19, Remove for can't umount /vendor in OTA update
+    mkdir /mnt/vendor/persist/mcRegistry
+    #mount ext4 /dev/block/platform/bootdevice/by-name/vendor  /vendor rw
+    #mount ext4 /dev/block/platform/bootdevice/by-name/system  /system rw
+    mkdir /mnt/vendor/persist
+    mount ext4 /dev/block/by-name/persist /mnt/vendor/persist rw
+    #setprop vendor.gatekeeper.disable_spu true
+    #endif /* VENDOR_EDIT */
+on boot
+    ifup lo
+    hostname localhost
+    domainname localdomain
+    exec u:r:recovery:s0 root root -- /system/bin/cp -arf /vendor/app/mcRegistry/. /odm/vendor/app/mcRegistry/
+    class_start default
+
+on boot && property:ro.crypto.state=encrypted && property:ro.crypto.type=file
+    load_fastboot_adb_props
+
+# Load properties from /system/ + /factory after fs mount.
+on load_system_props_action
+    load_system_props
+
+on load_persist_props_action
+    load_persist_props
+
+on firmware_mounts_complete
+   rm /dev/.booting
+
+# Mount filesystems and start core system services.
+on late-init
+    trigger early-fs
+    trigger fs
+    trigger post-fs
+    trigger post-fs-data
+
+    # Load properties from /system/ + /factory after fs mount. Place
+    # this in another action so that the load will be scheduled after the prior
+    # issued fs triggers have completed.
+    trigger load_system_props_action
+    trigger load_persist_props_action
+
+    # Remove a file to wake up anything waiting for firmware
+    trigger firmware_mounts_complete
+
+    trigger early-boot
+    trigger boot
+
+#on property:sys.powerctl=*
+#   powerctl ${sys.powerctl}
+
+service console /system/bin/sh
+    class core
+    console
+    user root
+    group shell log readproc
+    seclabel u:r:recovery:s0
+
+service ueventd /system/bin/ueventd
+    critical
+    seclabel u:r:recovery:s0
+
+service healthd /system/bin/android.hardware.health@2.1-service -r
+    seclabel u:r:recovery:s0
+
+service charger /system/bin/charger
+    seclabel u:r:recovery:s0
+
+service recovery /system/bin/recovery
+    socket recovery stream 422 system system
+    seclabel u:r:recovery:s0
+
+service adbd /system/bin/adbd --root_seclabel=u:r:recovery:s0 --device_banner=recovery
+    disabled
+    socket adbd stream 660 system system
+    seclabel u:r:recovery:s0
+
+service logd /system/bin/logd
+    class core
+    socket logd stream 0666 logd logd
+    socket logdr seqpacket 0666 logd logd
+    socket logdw dgram 0222 logd logd
+    group root system
+    seclabel u:r:recovery:s0
+
+service fastbootd /system/bin/fastbootd
+    disabled
+    group system
+    seclabel u:r:recovery:s0
+
+#Add for OPPO FBE
+service vendor.gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
+    seclabel u:r:recovery:s0
+
+service gatekeeperd /system/bin/gatekeeperd /data/misc/gatekeeper
+    seclabel u:r:recovery:s0
+
+service hal_cryptoeng_oppo /system/bin/hw/vendor.oplus.hardware.cryptoeng@1.0-service
+    seclabel u:r:recovery:s0
+
+service keymaster-4-0 /system/bin/android.hardware.keymaster@4.0-service.trustonic
+    seclabel u:r:recovery:s0
+
+service hwservicemanager /system/bin/hwservicemanager
+    onrestart setprop hwservicemanager.ready false
+    writepid /dev/cpuset/system-background/tasks
+    seclabel u:r:recovery:s0
+
+service mobicore /vendor/bin/mcDriverDaemon --P1 /mnt/vendor/persist/mcRegistry \
+    -r /vendor/app/mcRegistry/020f0000000000000000000000000000.drbin \
+    -r /vendor/app/mcRegistry/05120000000000000000000000000000.drbin \
+    -r /vendor/app/mcRegistry/020b0000000000000000000000000000.drbin \
+    -r /odm/vendor/app/mcRegistry/05070000000000000000000000000000.drbin \
+    -r /odm/vendor/app/mcRegistry/030b0000000000000000000000000000.drbin \
+    -r /odm/vendor/app/mcRegistry/030c0000000000000000000000000000.drbin \
+    -r /vendor/app/mcRegistry/07060000000000000000000000007169.drbin \
+    -r /vendor/app/mcRegistry/40188311faf343488db888ad39496f9a.drbin \
+    -r /vendor/app/mcRegistry/06090000000000000000000000000000.drbin \
+    -r /vendor/app/mcRegistry/0f5eed3c3b5a47afacca69a84bf0efad.drbin \
+    -r /vendor/app/mcRegistry/07407000000000000000000000000000.drbin \
+    -r /vendor/app/mcRegistry/9073f03a9618383bb1856eb3f990babd.drbin \
+    -r /vendor/app/mcRegistry/6b3f5fa0f8cf55a7be2582587d62d63a.drbin \
+    -r /vendor/app/mcRegistry/5020170115e016302017012521300000.drbin \
+    -r /odm/vendor/app/mcRegistry/09070000000000000000000000000000.drbin
+    seclabel u:r:recovery:s0
+
+on property:recovery.reload.persist=trigger_reload_persist
+    load_persist_props
+
+on property:enable.fbe.service=0
+    stop hal_cryptoeng_oppo
+    stop mobicore
+    stop servicemanager
+    stop hwservicemanager
+    stop keymaster-4-0
+    stop gatekeeperd
+    stop vendor.gatekeeper-1-0
+
+service conninfra_loader /vendor/bin/conninfra_loader
+    seclabel u:r:recovery:s0
