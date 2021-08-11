@@ -18,22 +18,13 @@ on init
     mount ext4 /dev/block/by-name/persist /mnt/vendor/persist rw
     #setprop vendor.gatekeeper.disable_spu true
     #endif /* VENDOR_EDIT */
+
 on boot
     ifup lo
     hostname localhost
     domainname localdomain
     exec u:r:recovery:s0 root root -- /system/bin/cp -arf /vendor/app/mcRegistry/. /odm/vendor/app/mcRegistry/
     class_start default
-
-on boot && property:ro.crypto.state=encrypted && property:ro.crypto.type=file
-    load_fastboot_adb_props
-
-# Load properties from /system/ + /factory after fs mount.
-on load_system_props_action
-    load_system_props
-
-on load_persist_props_action
-    load_persist_props
 
 on firmware_mounts_complete
    rm /dev/.booting
@@ -44,12 +35,6 @@ on late-init
     trigger fs
     trigger post-fs
     trigger post-fs-data
-
-    # Load properties from /system/ + /factory after fs mount. Place
-    # this in another action so that the load will be scheduled after the prior
-    # issued fs triggers have completed.
-    trigger load_system_props_action
-    trigger load_persist_props_action
 
     # Remove a file to wake up anything waiting for firmware
     trigger firmware_mounts_complete
@@ -134,9 +119,6 @@ service mobicore /vendor/bin/mcDriverDaemon --P1 /mnt/vendor/persist/mcRegistry 
     -r /vendor/app/mcRegistry/5020170115e016302017012521300000.drbin \
     -r /odm/vendor/app/mcRegistry/09070000000000000000000000000000.drbin
     seclabel u:r:recovery:s0
-
-on property:recovery.reload.persist=trigger_reload_persist
-    load_persist_props
 
 on property:enable.fbe.service=0
     stop hal_cryptoeng_oppo
