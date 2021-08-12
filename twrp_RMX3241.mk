@@ -33,7 +33,7 @@ PRODUCT_PACKAGES += \
 
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := RMX3241
-PRODUCT_NAME := aosp_RMX3241
+PRODUCT_NAME := twrp_RMX3241
 PRODUCT_BRAND := realme
 PRODUCT_MODEL := RMX3241
 PRODUCT_MANUFACTURER := realme
