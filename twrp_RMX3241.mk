@@ -31,7 +31,9 @@ PRODUCT_PACKAGES += \
     android.hardware.fastboot@1.0-impl-mock \
     android.hardware.fastboot@1.0-impl-mock.recovery \
     android.hardware.health@2.1-service \
-    android.hardware.health@2.1-impl.recovery
+    android.hardware.health@2.1-impl.recovery \
+    android.hardware.vibrator@1.0-service \
+    android.hardware.vibrator@1.0-impl
 
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := RMX3241
