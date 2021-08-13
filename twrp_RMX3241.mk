@@ -30,6 +30,7 @@ PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,$(LOCAL_PATH)/recovery/roo
 PRODUCT_PACKAGES += \
     android.hardware.fastboot@1.0-impl-mock \
     android.hardware.fastboot@1.0-impl-mock.recovery \
+    android.hardware.health@2.1-service \
     android.hardware.health@2.1-impl.recovery
 
 ## Device identifier. This must come after all inclusions
