@@ -58,7 +58,7 @@ service mobicore /vendor/bin/mcDriverDaemon --P1 /mnt/vendor/persist/mcRegistry 
     -r /odm/vendor/app/mcRegistry/09070000000000000000000000000000.drbin
     seclabel u:r:recovery:s0
 
-service vendor.vibrator-1-0 /system/bin/android.hardware.vibrator@1.0-service
+service vendor.vibrator-1-0 /vendor/bin/hw/android.hardware.vibrator@1.0-service
     class hal
     user root
     group root input
