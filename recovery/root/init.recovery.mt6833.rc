@@ -1,21 +1,3 @@
-on init
-
-    #Fangfang.Hui@PSW.AD.Ota.1122242, 2016/08/15, Add for check and autorepair ext4 filesystem partitions in recovery mode
-    exec /sbin/e2fsck -y /dev/block/platform/mtk-msdc.0/by-name/cache
-    exec /sbin/e2fsck -y /dev/block/platform/mtk-msdc.0/by-name/userdata
-
-    #mount ext4 /dev/block/bootdevice/by-name/userdata /data rw
-
-    #ifndef VENDOR_EDIT
-    #Yang.Li@ANDROID.STORAGE, 2017/12/19, Remove for can't umount /vendor in OTA update
-    mkdir /mnt/vendor/persist/mcRegistry
-    #mount ext4 /dev/block/platform/bootdevice/by-name/vendor  /vendor rw
-    #mount ext4 /dev/block/platform/bootdevice/by-name/system  /system rw
-    #mkdir /mnt/vendor/persist
-    #mount ext4 /dev/block/by-name/persist /mnt/vendor/persist rw
-    #setprop vendor.gatekeeper.disable_spu true
-    #endif /* VENDOR_EDIT */
-
 on boot
     ifup lo
     hostname localhost
@@ -39,48 +21,6 @@ on late-init
 
     trigger early-boot
     trigger boot
-
-#on property:sys.powerctl=*
-#   powerctl ${sys.powerctl}
-
-service console /system/bin/sh
-    class core
-    console
-    user root
-    group shell log readproc
-    seclabel u:r:recovery:s0
-
-service ueventd /system/bin/ueventd
-    critical
-    seclabel u:r:recovery:s0
-
-service healthd /system/bin/android.hardware.health@2.1-service -r
-    seclabel u:r:recovery:s0
-
-service charger /system/bin/charger
-    seclabel u:r:recovery:s0
-
-service recovery /system/bin/recovery
-    socket recovery stream 422 system system
-    seclabel u:r:recovery:s0
-
-service adbd /system/bin/adbd --root_seclabel=u:r:recovery:s0 --device_banner=recovery
-    disabled
-    socket adbd stream 660 system system
-    seclabel u:r:recovery:s0
-
-service logd /system/bin/logd
-    class core
-    socket logd stream 0666 logd logd
-    socket logdr seqpacket 0666 logd logd
-    socket logdw dgram 0222 logd logd
-    group root system
-    seclabel u:r:recovery:s0
-
-service fastbootd /system/bin/fastbootd
-    disabled
-    group system
-    seclabel u:r:recovery:s0
 
 #Add for OPPO FBE
 service vendor.gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
