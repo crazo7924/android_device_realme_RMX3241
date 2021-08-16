@@ -1,9 +1,8 @@
 system           /system           ext4
 vendor           /vendor           ext4
 product          /product          ext4
-odm              /odm              ext4
 
-/data            ext4 /dev/block/platform/bootdevice/by-name/userdata
+/data            f2fs /dev/block/dm-13
 /cache           ext4 /dev/block/platform/bootdevice/by-name/cache
 /boot            emmc /dev/block/platform/bootdevice/by-name/boot
 /recovery        emmc /dev/block/platform/bootdevice/by-name/recovery        flags=backup=1
@@ -15,25 +14,6 @@ odm              /odm              ext4
 /nvcfg           ext4 /dev/block/platform/bootdevice/by-name/nvcfg           flags=display="NVCFG";backup=1;subpartitionof=/nvram
 /nvdata          ext4 /dev/block/platform/bootdevice/by-name/nvdata          flags=display="NVDATA";backup=1;subpartitionof=/nvram
 /persist         ext4 /dev/block/platform/bootdevice/by-name/persist         flags=display="Persist";backup=1
-/protect_f       ext4 /dev/block/platform/bootdevice/by-name/protect1        flags=display="Protect_F";backup=1
-/protect_s       ext4 /dev/block/platform/bootdevice/by-name/protect2        flags=display="Protect_S";backup=1
-# /audio_dsp       emmc /dev/block/platform/bootdevice/by-name/audio_dsp
-# /cam_vpu1        emmc /dev/block/platform/bootdevice/by-name/cam_vpu1
-# /cam_vpu2        emmc /dev/block/platform/bootdevice/by-name/cam_vpu2
-# /cam_vpu3        emmc /dev/block/platform/bootdevice/by-name/cam_vpu3
-/cdt_engineering emmc /dev/block/platform/bootdevice/by-name/cdt_engineering
-/gz1             emmc /dev/block/platform/bootdevice/by-name/gz1
-/gz2             emmc /dev/block/platform/bootdevice/by-name/gz2
-/logo            emmc /dev/block/platform/bootdevice/by-name/logo            flags=display="Logo";backup=1;flashimg=1
-/md1img          emmc /dev/block/platform/bootdevice/by-name/md1img
-/spmfw           emmc /dev/block/platform/bootdevice/by-name/spmfw
-/sspm_1          emmc /dev/block/platform/bootdevice/by-name/sspm_1
-/sspm_2          emmc /dev/block/platform/bootdevice/by-name/sspm_2
-/tee1            emmc /dev/block/platform/bootdevice/by-name/tee1
-/tee2            emmc /dev/block/platform/bootdevice/by-name/tee2
-/para            emmc /dev/block/platform/bootdevice/by-name/para
-/persistent      emmc /dev/block/platform/bootdevice/by-name/frp
-/proinfo         emmc /dev/block/platform/bootdevice/by-name/proinfo
 
 /external_sd     auto /dev/block/mmcblk0p1 /dev/block/mmcblk0                flags=storage;wipeingui;removable;backup=0
 /usbotg          auto /dev/block/sdd1      /dev/block/sdd                    flags=display="USB-OTG";storage;wipeingui;removable;backup=0
