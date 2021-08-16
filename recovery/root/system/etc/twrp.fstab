@@ -1,8 +1,4 @@
-system           /system           ext4
-vendor           /vendor           ext4
-product          /product          ext4
-
-/data            f2fs /dev/block/dm-13
+/data            f2fs /dev/block/platform/bootdevice/by-name/userdata
 /cache           ext4 /dev/block/platform/bootdevice/by-name/cache
 /boot            emmc /dev/block/platform/bootdevice/by-name/boot
 /recovery        emmc /dev/block/platform/bootdevice/by-name/recovery        flags=backup=1
@@ -16,4 +12,4 @@ product          /product          ext4
 /persist         ext4 /dev/block/platform/bootdevice/by-name/persist         flags=display="Persist";backup=1
 
 /external_sd     auto /dev/block/mmcblk0p1 /dev/block/mmcblk0                flags=storage;wipeingui;removable;backup=0
-/usbotg          auto /dev/block/sdd1      /dev/block/sdd                    flags=display="USB-OTG";storage;wipeingui;removable;backup=0
+/usb-otg         auto /dev/block/sdd1      /dev/block/sdd                    flags=display="USB-OTG";storage;wipeingui;removable;backup=0
