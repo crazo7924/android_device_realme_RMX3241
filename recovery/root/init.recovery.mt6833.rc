@@ -4,6 +4,7 @@ on boot
     domainname localdomain
     exec u:r:recovery:s0 root root -- /system/bin/cp -arf /vendor/app/mcRegistry/. /odm/vendor/app/mcRegistry/
     class_start default
+    start vendor.vibrator-1-0
 
 on firmware_mounts_complete
    rm /dev/.booting
@@ -20,6 +21,12 @@ on late-init
 
     trigger early-boot
     trigger boot
+
+service vendor.vibrator-1-0 /vendor/bin/hw/android.hardware.vibrator-service.mediatek
+    class hal
+    user root
+    group root input
+    seclabel u:r:recovery:s0
 
 #Add for OPPO FBE
 service vendor.gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
