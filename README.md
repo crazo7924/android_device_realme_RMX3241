@@ -9,7 +9,7 @@ setup envirnoment
 `. build/envsetup.sh`
 
 then prepare
-`lunch aosp_RMX3241-eng`
+`lunch twrp_RMX3241-eng`
 
 make the image
 `m recoveryimage`
