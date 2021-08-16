@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2019 TeamWin Recovery Project
+# Copyright (C) 2021 TeamWin Recovery Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -93,15 +93,15 @@ TARGET_USERIMAGES_USE_F2FS := true
 
 # Dynamic Partition
 BOARD_SUPER_PARTITION_SIZE := 10737418240
+BOARD_SUPER_PARTITION_ERROR_LIMIT := 10736906240 # partition size minus 500 MB
 BOARD_SUPER_PARTITION_GROUPS := main
-BOARD_MAIN_SIZE := $(BOARD_SUPER_PARTITION_SIZE)
-BOARD_MAIN_PARTITION_LIST := system vendor
+BOARD_MAIN_SIZE := 5368705024 # (partition size / 2) minus 4MB
+BOARD_MAIN_PARTITION_LIST := system vendor product odm
 
 # System as root
 BOARD_SUPPRESS_SECURE_ERASE := true
 
-# Workaround for error copying vendor files to recovery ramdisk
-BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+# Seperate vendor partition
 TARGET_COPY_OUT_VENDOR := vendor
 
 # Metadata
@@ -125,21 +125,18 @@ BOARD_HAS_LARGE_FILESYSTEM := true
 # TWRP specific build flags
 TW_THEME := portrait_hdpi
 RECOVERY_SDCARD_ON_DATA := true
-BOARD_CHARGER_DISABLE_INIT_BLANK := true
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 TW_EXTRA_LANGUAGES := true
 TW_INCLUDE_NTFS_3G := true
 TW_USE_TOOLBOX := true
 TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
 TW_MAX_BRIGHTNESS := 4095
-TW_DEFAULT_BRIGHTNESS := 1279 # 25%
+TW_DEFAULT_BRIGHTNESS := 1023 # 25%
 TW_SCREEN_BLANK_ON_BOOT := true
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
 TARGET_USES_MKE2FS := true
 TW_EXCLUDE_TWRPAPP := true
-TW_INCLUDE_LOGICAL := product
-TW_SUPPORT_INPUT_1_2_HAPTICS := true
 TW_OZIP_DECRYPT_KEY := 0000
 TW_INCLUDE_RESETPROP := true
 TW_INCLUDE_REPACKTOOLS := true
