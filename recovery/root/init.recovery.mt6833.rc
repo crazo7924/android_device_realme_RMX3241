@@ -78,6 +78,7 @@ on property:hwservicemanager.ready=true
     start mobicore
     start keymaster-4-0
     start vendor.gatekeeper-1-0
+    start gatekeeperd
 
 on property:ro.crypto.state=unsupported
     stop hal_cryptoeng_oppo
@@ -86,6 +87,7 @@ on property:ro.crypto.state=unsupported
     stop hwservicemanager
     stop keymaster-4-0
     stop vendor.gatekeeper-1-0
+    stop gatekeeperd
 
 on property:ro.crypto.state=unencrypted
     stop hal_cryptoeng_oppo
@@ -94,6 +96,7 @@ on property:ro.crypto.state=unencrypted
     stop hwservicemanager
     stop keymaster-4-0
     stop vendor.gatekeeper-1-0
+    stop gatekeeperd
 
 on property:twrp.decrypt.done=true
     stop hal_cryptoeng_oppo
@@ -102,6 +105,7 @@ on property:twrp.decrypt.done=true
     stop hwservicemanager
     stop keymaster-4-0
     stop vendor.gatekeeper-1-0
+    stop gatekeeperd
 
 on property:sys.usb.config=fastboot
     start servicemanager
