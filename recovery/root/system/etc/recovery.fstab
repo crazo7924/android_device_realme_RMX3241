@@ -29,6 +29,8 @@ my_preload.x /my_preload ext4 ro wait,logical,first_stage_mount,nofail
 /dev/block/by-name/nvdata /mnt/vendor/nvdata ext4 noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc wait,check,formattable
 /dev/block/by-name/nvcfg /mnt/vendor/nvcfg ext4 noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc wait,check,formattable
 
+/dev/block/platform/bootdevice/by-name/persist /mnt/vendor/persist ext4 noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc,async_discard wait,check,formattable
+
 /dev/block/mmcblk0p1 /external_sd vfat  nosuid,nodev defaults
 /dev/block/sdd1 /usb_otg vfat nosuid,nodev defaults
 /dev/block/by-name/my_custom /my_custom ext4 ro nofail
