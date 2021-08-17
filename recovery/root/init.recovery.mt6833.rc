@@ -35,10 +35,10 @@ service vendor.gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-ser
 service gatekeeperd /system/bin/gatekeeperd /data/misc/gatekeeper
     seclabel u:r:recovery:s0
 
-service hal_cryptoeng_oppo /system/bin/hw/vendor.oplus.hardware.cryptoeng@1.0-service
+service hal_cryptoeng_oppo /vendor/bin/hw/vendor.oplus.hardware.cryptoeng@1.0-service
     seclabel u:r:recovery:s0
 
-service keymaster-4-0 /system/bin/hw/android.hardware.keymaster@4.0-service.trustonic
+service keymaster-4-0 /vendor/bin/hw/android.hardware.keymaster@4.0-service.trustonic
     seclabel u:r:recovery:s0
 
 service hwservicemanager /system/bin/hwservicemanager
