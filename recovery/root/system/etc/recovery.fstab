@@ -1,104 +1,24 @@
-# 1 "vendor/mediatek/proprietary/hardware/fstab/mt6853/fstab.in.mt6853"
-# 1 "<built-in>" 1
-# 1 "<built-in>" 3
-# 350 "<built-in>" 3
-# 1 "<command line>" 1
-# 1 "<built-in>" 2
-# 1 "vendor/mediatek/proprietary/hardware/fstab/mt6833/fstab.in.mt6833" 2
-# 141 "vendor/mediatek/proprietary/hardware/fstab/mt6833/fstab.in.mt6833"
-system /system ext4 ro wait,,avb=vbmeta_system,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
-vendor /vendor ext4 ro wait,,avb,logical,first_stage_mount
-product /product ext4 ro wait,,avb,logical,first_stage_mount
-my_odm /odm ext4 ro wait,logical,first_stage_mount,nofail
-my_product /my_product ext4 ro wait,logical,first_stage_mount,nofail
-my_engineering /my_engineering ext4 ro wait,logical,first_stage_mount,nofail
-my_company.netease /my_company ext4 ro,barrier=1 wait,logical,first_stage_mount,nofail
-my_carrier.vdf /my_carrier ext4 ro,barrier=1 wait,logical,first_stage_mount,nofail
-my_region.japan /my_region ext4 ro,barrier=1 wait,logical,first_stage_mount,nofail
-my_heytap.x /my_heytap ext4 ro,barrier=1 wait,logical,first_stage_mount,nofail
-my_stock.x /my_stock ext4 ro,barrier=1 wait,logical,first_stage_mount,nofail
-my_preload.x /my_preload ext4 ro wait,logical,first_stage_mount,nofail
+# Logical partitions
+system           /system   ext4
+product          /product  ext4
+vendor           /vendor   ext4
+odm              /odm      ext4
 
-/dev/block/by-name/metadata /metadata ext4 noatime,nosuid,nodev,discard wait,check,formattable,first_stage_mount
-/dev/block/by-name/cache /cache ext4 noatime,nosuid,nodev,noauto_da_alloc,discard wait,check,formattable,first_stage_mount
+# Physical partitions
+/metadata        ext4 /dev/block/platform/bootdevice/by-name/metadata
+/data            f2fs /dev/block/platform/bootdevice/by-name/userdata
+/cache           ext4 /dev/block/platform/bootdevice/by-name/cache
+/boot            emmc /dev/block/platform/bootdevice/by-name/boot
+/recovery        emmc /dev/block/platform/bootdevice/by-name/recovery        flags=backup=1
+/dtbo            emmc /dev/block/platform/bootdevice/by-name/dtbo            flags=display="DTBO";backup=1
+/vbmeta          emmc /dev/block/platform/bootdevice/by-name/vbmeta          flags=display="VBMeta";backup=1
+/vbmeta_system   emmc /dev/block/platform/bootdevice/by-name/vbmeta_system   flags=display="VBMeta (System)";backup=1
+/vbmeta_vendor   emmc /dev/block/platform/bootdevice/by-name/vbmeta_vendor   flags=display="VBMeta (Vendor)";backup=1
+/nvram           emmc /dev/block/platform/bootdevice/by-name/nvram           flags=display="NVRAM";backup=1
+/nvcfg           ext4 /dev/block/platform/bootdevice/by-name/nvcfg           flags=display="NVCFG";backup=1;subpartitionof=/nvram
+/nvdata          ext4 /dev/block/platform/bootdevice/by-name/nvdata          flags=display="NVDATA";backup=1;subpartitionof=/nvram
 
-/dev/block/by-name/userdata /data f2fs noatime,nosuid,nodev,discard,noflush_merge,fsync_mode=nobarrier,reserve_root=134217,resgid=1065,inlinecrypt wait,check,formattable,quota,reservedsize=128m,latemount,resize,checkpoint=fs,fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption,fsverity
-
-/dev/block/by-name/protect1 /mnt/vendor/protect_f ext4 noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc wait,check,formattable
-/dev/block/by-name/protect2 /mnt/vendor/protect_s ext4 noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc wait,check,formattable
-/dev/block/by-name/nvdata /mnt/vendor/nvdata ext4 noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc wait,check,formattable
-/dev/block/by-name/nvcfg /mnt/vendor/nvcfg ext4 noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc wait,check,formattable
-
-/dev/block/platform/bootdevice/by-name/persist /mnt/vendor/persist ext4 noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc,async_discard wait,check,formattable
-
-/dev/block/mmcblk0p1 /external_sd vfat  nosuid,nodev defaults
-/dev/block/sdd1 /usb_otg vfat nosuid,nodev defaults
-/dev/block/by-name/my_custom /my_custom ext4 ro nofail
-/dev/block/by-name/special_preload /special_preload ext4 ro wait,nofail
-/dev/block/by-name/cdt_engineering /cdt_engineering emmc defaults defaults
-
-/dev/block/by-name/opporeserve2 /mnt/vendor/opporeserve ext4 noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc wait,check,formattable
-
-/devices/platform/externdevice* auto auto defaults voldmanaged=sdcard1:auto
-
-/devices/platform/11200000.usb_xhci* auto vfat defaults voldmanaged=usbotg:auto
-
-/dev/block/by-name/frp /persistent emmc defaults defaults
-
-/dev/block/by-name/nvram /nvram emmc defaults defaults
-/dev/block/by-name/proinfo /proinfo emmc defaults defaults
-/dev/block/by-name/lk /bootloader emmc defaults defaults
-/dev/block/by-name/lk2 /bootloader2 emmc defaults defaults
-/dev/block/by-name/para /para emmc defaults defaults
-/dev/block/by-name/misc /misc emmc defaults defaults
-
-/dev/block/by-name/recovery /recovery emmc defaults first_stage_mount,nofail,
-
-/dev/block/by-name/boot /boot emmc defaults first_stage_mount,nofail,
-
-/dev/block/by-name/vbmeta_vendor /vbmeta_vendor emmc defaults first_stage_mount,nofail,
-/dev/block/by-name/vbmeta_system /vbmeta_system emmc defaults first_stage_mount,nofail,,avb=vbmeta
-
-/dev/block/by-name/logo /logo emmc defaults defaults
-/dev/block/by-name/expdb /expdb emmc defaults defaults
-/dev/block/by-name/seccfg /seccfg emmc defaults defaults
-
-/dev/block/by-name/tee1 /tee1 emmc defaults defaults
-/dev/block/by-name/tee2 /tee2 emmc defaults defaults
-
-/dev/block/by-name/scp1 /scp1 emmc defaults defaults
-/dev/block/by-name/scp2 /scp2 emmc defaults defaults
-
-/dev/block/by-name/sspm_1 /sspm_1 emmc defaults defaults
-/dev/block/by-name/sspm_2 /sspm_2 emmc defaults defaults
-
-/dev/block/by-name/dpm_1 /dpm_1 emmc defaults defaults
-/dev/block/by-name/dpm_2 /dpm_2 emmc defaults defaults
-
-/dev/block/by-name/mcupm_1 /mcupm_1 emmc defaults defaults
-/dev/block/by-name/mcupm_2 /mcupm_2 emmc defaults defaults
-
-/dev/block/by-name/md1img /md1img emmc defaults defaults
-/dev/block/by-name/md1dsp /md1dsp emmc defaults defaults
-/dev/block/by-name/md1arm7 /md1arm7 emmc defaults defaults
-/dev/block/by-name/md3img /md3img emmc defaults defaults
-
-/dev/block/by-name/cam_vpu1 /cam_vpu1 emmc defaults defaults
-/dev/block/by-name/cam_vpu2 /cam_vpu2 emmc defaults defaults
-/dev/block/by-name/cam_vpu3 /cam_vpu3 emmc defaults defaults
-
-/dev/block/by-name/gz1 /gz1 emmc defaults defaults
-/dev/block/by-name/gz2 /gz2 emmc defaults defaults
-
-/dev/block/by-name/spmfw /spmfw emmc defaults defaults
-
-/dev/block/by-name/audio_dsp /audio_dsp emmc defaults defaults
-
-/dev/block/by-name/pi_img /pi_img emmc defaults defaults
-/dev/block/by-name/boot_para /boot_para emmc defaults defaults
-
-/dev/block/by-name/odmdtbo /odmdtbo emmc defaults defaults
-/dev/block/by-name/dtbo /dtbo emmc defaults defaults
-
-/dev/block/by-name/otp /otp emmc defaults defaults
-/dev/block/by-name/vbmeta /vbmeta emmc defaults defaults
+/mnt/vendor/persist ext4 /dev/block/platform/bootdevice/by-name/persist
+# External storages
+/external_sd     auto /dev/block/mmcblk0p1 /dev/block/mmcblk0                flags=storage;wipeingui;removable;backup=0
+/usb-otg         auto /dev/block/sdd1      /dev/block/sdd                    flags=display="USB-OTG";storage;wipeingui;removable;backup=0

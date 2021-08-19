@@ -1,7 +1,10 @@
+on fs
+    install_keyring
+    mkdir /mnt/vendor/persist 0777 system system
+    setprop crypto.ready 1
+    write /sys/class/power_supply/usb/otg_switch 1
+
 on boot
-    ifup lo
-    hostname localhost
-    domainname localdomain
     exec u:r:recovery:s0 root root -- /system/bin/cp -arf /vendor/app/mcRegistry/. /odm/vendor/app/mcRegistry/
     class_start default
     start vendor.vibrator-1-0
@@ -29,16 +32,22 @@ service vendor.vibrator-1-0 /vendor/bin/hw/android.hardware.vibrator-service.med
     seclabel u:r:recovery:s0
 
 #Add for OPPO FBE
-service vendor.gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
+service gatekeeper-1-0 /system/bin/android.hardware.gatekeeper@1.0-service
+    user root
+    group root
+    disabled
     seclabel u:r:recovery:s0
 
-service gatekeeperd /system/bin/gatekeeperd /data/misc/gatekeeper
+service hal_cryptoeng_oppo /system/bin/vendor.oplus.hardware.cryptoeng@1.0-service
+    user root
+    group root drmrpc
+    disabled
     seclabel u:r:recovery:s0
 
-service hal_cryptoeng_oppo /vendor/bin/hw/vendor.oplus.hardware.cryptoeng@1.0-service
-    seclabel u:r:recovery:s0
-
-service keymaster-4-0 /vendor/bin/hw/android.hardware.keymaster@4.0-service.trustonic
+service keymaster-4-0 /system/bin/android.hardware.keymaster@4.0-service.trustonic
+    user root
+    group root drmpc
+    disabled
     seclabel u:r:recovery:s0
 
 service hwservicemanager /system/bin/hwservicemanager
@@ -70,15 +79,13 @@ on property:enable.fbe.service=0
     stop servicemanager
     stop hwservicemanager
     stop keymaster-4-0
-    stop gatekeeperd
-    stop vendor.gatekeeper-1-0
+    stop gatekeeper-1-0
 
 on property:hwservicemanager.ready=true
     start hal_cryptoeng_oppo
     start mobicore
     start keymaster-4-0
-    start vendor.gatekeeper-1-0
-    start gatekeeperd
+    start gatekeeper-1-0
 
 on property:ro.crypto.state=unsupported
     stop hal_cryptoeng_oppo
@@ -86,8 +93,7 @@ on property:ro.crypto.state=unsupported
     stop servicemanager
     stop hwservicemanager
     stop keymaster-4-0
-    stop vendor.gatekeeper-1-0
-    stop gatekeeperd
+    stop gatekeeper-1-0
 
 on property:ro.crypto.state=unencrypted
     stop hal_cryptoeng_oppo
@@ -95,8 +101,7 @@ on property:ro.crypto.state=unencrypted
     stop servicemanager
     stop hwservicemanager
     stop keymaster-4-0
-    stop vendor.gatekeeper-1-0
-    stop gatekeeperd
+    stop gatekeeper-1-0
 
 on property:twrp.decrypt.done=true
     stop hal_cryptoeng_oppo
@@ -105,7 +110,6 @@ on property:twrp.decrypt.done=true
     stop hwservicemanager
     stop keymaster-4-0
     stop vendor.gatekeeper-1-0
-    stop gatekeeperd
 
 on property:sys.usb.config=fastboot
     start servicemanager
