@@ -1,6 +1,5 @@
 on fs
     install_keyring
-    mkdir /mnt/vendor/persist 0777 system system
     setprop crypto.ready 1
     write /sys/class/power_supply/usb/otg_switch 1
 
