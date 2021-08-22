@@ -8,21 +8,9 @@ on boot
     class_start default
     start vibrator-1-0
 
-on firmware_mounts_complete
-   rm /dev/.booting
-
-# Mount filesystems and start core system services.
-on late-init
-    trigger early-fs
-    trigger fs
-    trigger post-fs
-    trigger post-fs-data
-
-    # Remove a file to wake up anything waiting for firmware
-    trigger firmware_mounts_complete
-
-    trigger early-boot
-    trigger boot
+on init
+    mkdir /mnt/vendor/persist/mcRegistry
+    mount ext4 /dev/block/by-name/persist /mnt/vendor/persist
 
 service vibrator-1-0 /system/bin/android.hardware.vibrator-service.mediatek
     class hal

@@ -96,8 +96,6 @@ BOARD_SUPER_PARTITION_GROUPS := main
 BOARD_MAIN_SIZE := 5368705024 # (partition size / 2) minus 4MB
 BOARD_MAIN_PARTITION_LIST := system vendor product odm
 
-BOARD_ROOT_EXTRA_SYMLINKS += /mnt/vendor/persist:/persist
-
 # System as root
 BOARD_SUPPRESS_SECURE_ERASE := true
 

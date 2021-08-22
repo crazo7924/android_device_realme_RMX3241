@@ -18,7 +18,6 @@ odm              /odm      ext4
 /nvram           emmc /dev/block/platform/bootdevice/by-name/nvram           flags=display="NVRAM";backup=1
 /nvcfg           ext4 /dev/block/platform/bootdevice/by-name/nvcfg           flags=display="NVCFG";backup=1;subpartitionof=/nvram
 /nvdata          ext4 /dev/block/platform/bootdevice/by-name/nvdata          flags=display="NVDATA";backup=1;subpartitionof=/nvram
-/persist         ext4 /dev/block/platform/bootdevice/by-name/persist
 
 # External storages
 /external_sd     vfat /dev/block/mmcblk0p1 /dev/block/mmcblk0                flags=storage;wipeingui;removable;backup=0
