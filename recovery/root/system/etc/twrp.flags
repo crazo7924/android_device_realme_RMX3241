@@ -21,5 +21,5 @@ odm              /odm      ext4
 /persist         ext4 /dev/block/platform/bootdevice/by-name/persist
 
 # External storages
-/external_sd     auto /dev/block/mmcblk0p1 /dev/block/mmcblk0                flags=storage;wipeingui;removable;backup=0
-/usb-otg         auto /dev/block/sdd1      /dev/block/sdd                    flags=display="USB-OTG";storage;wipeingui;removable;backup=0
+/external_sd     vfat /dev/block/mmcblk0p1 /dev/block/mmcblk0                flags=storage;wipeingui;removable;backup=0
+/usb_otg         vfat /dev/block/sdd1      /dev/block/sdd                    flags=display="USB-OTG";storage;wipeingui;removable;backup=0
