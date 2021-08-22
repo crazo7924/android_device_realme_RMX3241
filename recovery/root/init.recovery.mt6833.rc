@@ -9,6 +9,7 @@ on boot
     start vibrator-1-0
 
 on init
+    export LD_LIBRARY_PATH /system/lib64:/vendor/lib64/hw:/system_root/system/lib64
     mkdir /mnt/vendor/persist/mcRegistry
     mount ext4 /dev/block/by-name/persist /mnt/vendor/persist
 
