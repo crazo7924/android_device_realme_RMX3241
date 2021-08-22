@@ -2,7 +2,7 @@
 system           /system   ext4
 product          /product  ext4
 vendor           /vendor   ext4
-my_odm           /odm      ext4
+odm              /odm      ext4
 
 # Physical partitions
 /metadata        ext4 /dev/block/platform/bootdevice/by-name/metadata
