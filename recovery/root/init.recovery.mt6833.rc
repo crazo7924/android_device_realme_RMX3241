@@ -6,18 +6,10 @@ on fs
 on boot
     exec u:r:recovery:s0 root root -- /system/bin/cp -arf /vendor/app/mcRegistry/. /odm/vendor/app/mcRegistry/
     class_start default
-    start vibrator-1-0
 
 on init
-    export LD_LIBRARY_PATH /system/lib64:/vendor/lib64/hw:/system_root/system/lib64
     mkdir /mnt/vendor/persist
     mount ext4 /dev/block/by-name/persist /mnt/vendor/persist
-
-service vibrator-1-0 /system/bin/android.hardware.vibrator-service.mediatek
-    class hal
-    user root
-    group root input
-    seclabel u:r:recovery:s0
 
 #Add for OPPO FBE
 service gatekeeper-1-0 /system/bin/android.hardware.gatekeeper@1.0-service
