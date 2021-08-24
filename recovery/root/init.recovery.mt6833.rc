@@ -10,7 +10,7 @@ on boot
 
 on init
     export LD_LIBRARY_PATH /system/lib64:/vendor/lib64/hw:/system_root/system/lib64
-    mkdir /mnt/vendor/persist/mcRegistry
+    mkdir /mnt/vendor/persist
     mount ext4 /dev/block/by-name/persist /mnt/vendor/persist
 
 service vibrator-1-0 /system/bin/android.hardware.vibrator-service.mediatek
