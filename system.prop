@@ -5,4 +5,3 @@ ro.sys.usb.storage.type=mtp
 
 # Encryption
 vendor.gatekeeper.disable_spu=true
-fbe.metadata.wrappedkey=true
