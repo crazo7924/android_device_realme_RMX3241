@@ -3,24 +3,26 @@ on init
 
     mkdir /mnt/vendor/persist
     mount ext4 /dev/block/by-name/persist /mnt/vendor/persist rw
+   
+    write /sys/class/power_supply/usb/otg_switch 1
 
 on boot
     ifup lo
     hostname localhost
     domainname localdomain
-    exec u:r:recovery:s0 root root -- /system/bin/cp -af /res/${ro.product.brand.ui:-ColorOS}/. /res
     exec u:r:recovery:s0 root root -- /system/bin/cp -arf /vendor/app/mcRegistry/. /odm/vendor/app/mcRegistry/
     class_start default
 
-on boot && property:ro.crypto.state=encrypted && property:ro.crypto.type=file
-    load_fastboot_adb_props
+# We need vold early for metadata encryption
+on early-fs
+    start vold
 
-# Load properties from /system/ + /factory after fs mount.
-on load_system_props_action
-    load_system_props
+on late-fs
+    # Wait for keymaster
+    exec_start wait_for_keymaster
 
-on load_persist_props_action
-    load_persist_props
+    # Mount RW partitions which need run fsck
+    mount_all /system/etc/recovery.fstab --late
 
 # Restart adbd so it can run as root
 on property:service.adb.root=1
@@ -63,7 +65,7 @@ on property:sys.usb.config=fastboot
 
 on property:sys.usb.config=none && property:sys.usb.configfs=0
     stop adbd
-    stop fastboot
+    stop fastbootd
     write /sys/class/android_usb/android0/enable 0
     setprop sys.usb.state ${sys.usb.config}
 
@@ -116,6 +118,9 @@ on property:sys.usb.config=fastboot && property:sys.usb.ffs.ready=1 && property:
     setprop sys.usb.state ${sys.usb.config}
 
 #Add for OPPO FBE
+service gatekeeper-1-0 /system/bin/android.hardware.gatekeeper@1.0-service
+    seclabel u:r:recovery:s0
+
 service hal_cryptoeng_oppo /system/bin/hw/vendor.oplus.hardware.cryptoeng@1.0-service
     seclabel u:r:recovery:s0
 
@@ -150,5 +155,4 @@ on property:enable.fbe.service=0
     stop hwservicemanager
     stop keymaster-4-0
     stop gatekeeperd
-    stop vendor.gatekeeper-1-0
-
+    stop gatekeeper-1-0
