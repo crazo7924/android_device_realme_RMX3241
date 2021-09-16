@@ -124,6 +124,7 @@ TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
 TW_MAX_BRIGHTNESS := 4095
 TW_DEFAULT_BRIGHTNESS := 1023 # 25%
 TW_SCREEN_BLANK_ON_BOOT := true
+TW_EXCLUDE_DEFAULT_USB_INIT := true
 
 #For debugging
 TWRP_INCLUDE_LOGCAT := true
