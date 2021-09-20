@@ -1,12 +1,12 @@
 # Logical partitions
-system           /system   ext4
-product          /product  ext4
-vendor           /vendor   ext4
-odm              /odm      ext4
+system           /system	ext4
+product          /product	ext4
+vendor           /vendor	ext4
+system_ext       /system_ext	ext4
 
 # Physical partitions
 /metadata        ext4 /dev/block/platform/bootdevice/by-name/metadata
-/data            f2fs /dev/block/platform/bootdevice/by-name/userdata        flags=fileencryption=aes-256-xts:aes-256-cts
+/data            f2fs /dev/block/platform/bootdevice/by-name/userdata
 /cache           ext4 /dev/block/platform/bootdevice/by-name/cache
 /boot            emmc /dev/block/platform/bootdevice/by-name/boot            flags=backup=1
 /recovery        emmc /dev/block/platform/bootdevice/by-name/recovery        flags=backup=1
@@ -21,3 +21,4 @@ odm              /odm      ext4
 # External storages
 /external_sd     vfat /dev/block/mmcblk0p1 /dev/block/mmcblk0                flags=storage;wipeingui;removable;backup=0
 /usb_otg         vfat /dev/block/sdd1      /dev/block/sdd                    flags=display="USB-OTG";storage;wipeingui;removable;backup=0
+
