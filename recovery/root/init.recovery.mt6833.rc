@@ -20,7 +20,7 @@ service keystore /system/bin/keystore /tmp/misc/keystore
     seclabel u:r:recovery:s0
 
 #Add for OPPO FBE
-service hal_cryptoeng_oppo /system/bin/vendor.oppo.hardware.cryptoeng@1.0-service
+service hal_cryptoeng_oppo /system/bin/vendor.oplus.hardware.cryptoeng@1.0-service
     user root
     group root drmrpc sdcard_rw sdcard_r
     disabled

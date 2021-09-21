@@ -20,7 +20,7 @@
         <fqname>@4.0::IKeymasterDevice/default</fqname>
     </hal>
     <hal format="hidl">
-        <name>vendor.oppo.hardware.cryptoeng</name>
+        <name>vendor.oplus.hardware.cryptoeng</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
         <interface>
