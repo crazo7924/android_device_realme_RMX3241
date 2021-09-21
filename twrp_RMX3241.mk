@@ -26,9 +26,11 @@ $(call inherit-product, vendor/twrp/config/common.mk)
 
 PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,$(LOCAL_PATH)/recovery/root,recovery/root)
 
-# libion
+# Extra required packages
 PRODUCT_PACKAGES += \
-    libion.recovery
+    libion.recovery \
+    android.hardware.fastboot@1.0-impl-mock.recovery \
+    fastbootd
 
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := RMX3241
