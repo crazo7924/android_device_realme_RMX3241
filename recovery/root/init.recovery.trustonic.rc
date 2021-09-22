@@ -19,8 +19,6 @@ service mobicore /system/bin/mcDriverDaemon --P1 /mnt/vendor/persist/mcRegistry 
     group root
     disabled
     seclabel u:r:recovery:s0
-    priority -20
-    seclabel u:r:recovery:s0
     
 on init
     # Create the mountpoint for /mnt/vendor/persist partition
