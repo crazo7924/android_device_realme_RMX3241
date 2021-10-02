@@ -45,5 +45,5 @@ jobs:
              
        - uses: actions/upload-artifact@v2
          with:
-           name: twrp-11-RMX3241-$(date -R)
-           path: out/target/product/${DEVICE}/${TARGET}.img
+           name: twrp-11-$(date -R)
+           path: out/target/product/*/recovery.img
