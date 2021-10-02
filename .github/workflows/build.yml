@@ -7,6 +7,7 @@ env:
   MANIFEST: https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git
   MANIFEST_BRANCH: twrp-11
   DEVICE: RMX3241
+  DT_REPO: https://github.com/crazo7924/android_device_realme_RMX3241.git
   DT_PATH: device/realme/RMX3241
   TARGET: recovery
   TZ: Asia/Kolkata
@@ -30,15 +31,11 @@ jobs:
             sudo curl --create-dirs -L -o /usr/local/bin/repo -O -L https://storage.googleapis.com/git-repo-downloads/repo
             sudo chmod a+rx /usr/local/bin/repo
             
-       - name: Sync recovery sources
+       - name: Sync recovery and device tree sources
          run: |
              repo init -u $MANIFEST -b $MANIFEST_BRANCH --depth=1 --groups=all,-notdefault,-device,-darwin,-x86,-mips
              repo sync -j$(nproc --all)
-             
-       - name: Checkout the device repo
-         uses: actions/checkout@v2
-         with:
-           path: ${DT_PATH}
+             git clone $DT_REPO --depth=1 $DT_PATH
              
        - name: Build
          run: |
