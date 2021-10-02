@@ -38,7 +38,7 @@ jobs:
        - name: Checkout the device repo
          uses: actions/checkout@v2
          with:
-           path: $DT_PATH
+           path: ${DT_PATH}
              
        - name: Build
          run: |
