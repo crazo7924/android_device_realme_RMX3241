@@ -1,14 +1,14 @@
 name: Building TWRP
 
 on:
+  workflow_dispatch
 
 env:
   MANIFEST: https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git
   MANIFEST_BRANCH: twrp-11
   DEVICE: RMX3241
-  DT_LINK: https://github.com/ElytrA8/recovery_rosy
   DT_PATH: device/realme/RMX3241
-  TARGET: recoveryimage
+  TARGET: recovery
   TZ: Asia/Kolkata
 
 jobs:
@@ -30,22 +30,23 @@ jobs:
             sudo curl --create-dirs -L -o /usr/local/bin/repo -O -L https://storage.googleapis.com/git-repo-downloads/repo
             sudo chmod a+rx /usr/local/bin/repo
             
-       - name: Sync recovery source and device tree
+       - name: Sync recovery sources
          run: |
-             mkdir work
-             cd work
              repo init -u $MANIFEST -b $MANIFEST_BRANCH --depth=1 --groups=all,-notdefault,-device,-darwin,-x86,-mips
              repo sync -j$(nproc --all)
-             git clone $DT_LINK --depth=1 --single-branch $DT_PATH
+             
+       - name: Checkout the device repo
+         uses: actions/checkout@v2
+         with:
+           path: $DT_PATH
              
        - name: Build
          run: |
-              cd work
               . build/envsetup.sh
               lunch twrp_$DEVICE-eng || true
-              export ALLOW_MISSING_DEPENDENCIES=true && mka $TARGET
+              export ALLOW_MISSING_DEPENDENCIES=true && mka ${TARGET}image
              
        - uses: actions/upload-artifact@v2
          with:
-          name: twrp-11-RMX3241-$(date)
-          path: work/out/target/product/RMX3241/recovery.img
+           name: twrp-11-RMX3241-$(date -R)
+           path: out/target/product/${DEVICE}/${TARGET}.img
