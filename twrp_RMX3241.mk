@@ -23,6 +23,7 @@ PRODUCT_USE_DYNAMIC_PARTITIONS := true
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 
 # Inherit from TWRP common configurations
 $(call inherit-product, vendor/twrp/config/common.mk)
@@ -32,16 +33,20 @@ PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,$(LOCAL_PATH)/recovery/roo
 # Extra required packages
 PRODUCT_PACKAGES += \
     libion.recovery \
+    android.hardware.fastboot@1.0-impl-mock \
     android.hardware.fastboot@1.0-impl-mock.recovery \
     fastbootd
 
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := RMX3241
 PRODUCT_NAME := twrp_RMX3241
-PRODUCT_BRAND := realme
-PRODUCT_MODEL := RMX3241
-PRODUCT_MANUFACTURER := realme
+PRODUCT_BRAND := Realme
+PRODUCT_MODEL := 8 5G
+PRODUCT_MANUFACTURER := Realme
 
 # HACK: Set vendor patch level
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.build.security_patch=2099-12-31
+    ro.vendor.build.security_patch=2099-12-31 \
+    ro.bootimage.build.date.utc=0 \
+    ro.build.date.utc=0
+
