@@ -1,44 +1,26 @@
-# Dynamic partitions
-system			ext4	/system		display="System";logical
-vendor			ext4	/vendor		display="Vendor";logical
-odm			ext4	/odm		display="ODM";logical
-product		ext4	/product	display="Product";logical
+# Android fstab file.
+# The filesystem that contains the filesystem checker binary (typically /system) cannot
+# specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
 
-# Physical partitions
-/data			f2fs	/dev/block/platform/bootdevice/by-name/userdata
-/cache			ext4	/dev/block/platform/bootdevice/by-name/cache
-/boot			emmc	/dev/block/platform/bootdevice/by-name/boot		flags=backup=1;flashimg=1
-/recovery		emmc	/dev/block/platform/bootdevice/by-name/recovery	flags=backup=1;flashimg=1
-/dtbo			emmc	/dev/block/platform/bootdevice/by-name/dtbo		flags=display="DTBO";backup=1
-/vbmeta		emmc	/dev/block/platform/bootdevice/by-name/vbmeta		flags=display="VBMeta";backup=1;flashimg=1
-/vbmeta_system		emmc	/dev/block/platform/bootdevice/by-name/vbmeta_system	flags=display="VBMeta (System)";backup=1
-/vbmeta_vendor		emmc	/dev/block/platform/bootdevice/by-name/vbmeta_vendor	flags=display="VBMeta (Vendor)";backup=1
-/nvram			emmc	/dev/block/platform/bootdevice/by-name/nvram		flags=display="NVRAM";backup=1
-/nvcfg			ext4	/dev/block/platform/bootdevice/by-name/nvcfg		flags=display="NVCFG";backup=1;subpartitionof=/nvram
-/nvdata		ext4	/dev/block/platform/bootdevice/by-name/nvdata		flags=display="NVDATA";backup=1;subpartitionof=/nvram
-/persist		ext4	/dev/block/platform/bootdevice/by-name/persist		flags=display="Persist";backup=1
-/protect_f		ext4	/dev/block/platform/bootdevice/by-name/protect1		flags=display="Protect_F";backup=1
-/protect_s		ext4	/dev/block/platform/bootdevice/by-name/protect2		flags=display="Protect_S";backup=1
-/audio_dsp		emmc	/dev/block/platform/bootdevice/by-name/audio_dsp
-/bootloader		emmc	/dev/block/platform/bootdevice/by-name/lk
-/bootloader2		emmc	/dev/block/platform/bootdevice/by-name/lk2
-/cam_vpu1		emmc	/dev/block/platform/bootdevice/by-name/cam_vpu1
-/cam_vpu2		emmc	/dev/block/platform/bootdevice/by-name/cam_vpu2
-/cam_vpu3		emmc	/dev/block/platform/bootdevice/by-name/cam_vpu3
-/cdt_engineering	emmc	/dev/block/platform/bootdevice/by-name/cdt_engineering
-/gz1			emmc	/dev/block/platform/bootdevice/by-name/gz1
-/gz2			emmc	/dev/block/platform/bootdevice/by-name/gz2
-/logo			emmc	/dev/block/platform/bootdevice/by-name/logo
-/md1img		emmc	/dev/block/platform/bootdevice/by-name/md1img
-/spmfw			emmc	/dev/block/platform/bootdevice/by-name/spmfw
-/sspm_1		emmc	/dev/block/platform/bootdevice/by-name/sspm_1
-/sspm_2		emmc	/dev/block/platform/bootdevice/by-name/sspm_2
-/tee1			emmc	/dev/block/platform/bootdevice/by-name/tee1
-/tee2			emmc	/dev/block/platform/bootdevice/by-name/tee2
-/para			emmc	/dev/block/platform/bootdevice/by-name/para
-/persistent		emmc	/dev/block/platform/bootdevice/by-name/frp
-/proinfo		emmc	/dev/block/platform/bootdevice/by-name/proinfo
+# Currently we dont have e2fsck compiled. So fs check would failed.
 
-# External storages
-/external_sd		auto	/dev/block/mmcblk0p1	/dev/block/mmcblk0		flags=storage;wipeingui;removable;backup=0
-/usb_otg		auto	/dev/block/sdd1		/dev/block/sdd			flags=display="USB-OTG";storage;wipeingui;removable;backup=0
+# <mount_point>  <fstype>  <device>        <device2>                  <flags>
+/boot             emmc     /dev/block/by-name/boot                    flags=backup=1;display="Boot";flashimg=1
+/cache            ext4     /dev/block/by-name/cache                   flags=backup=1;display="Cache";wipeingui
+/dtbo             emmc     /dev/block/by-name/dtbo                    flags=backup=1;display="DTBO";flashimg=1
+/recovery         emmc     /dev/block/by-name/recovery                flags=backup=1;display="Recovery"
+/vbmeta           emmc     /dev/block/by-name/vbmeta                  flags=backup=1;display="VBMeta";flashimg=1
+
+/data             f2fs     /dev/block/by-name/userdata                fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption,metadata_encryption=aes-256-xts
+/metadata         ext4     /dev/block/by-name/metadata                flags=display="Metadata"
+
+/nvcfg            ext4     /dev/block/by-name/nvcfg                   flags=backup=1;display="NVCFG"
+/nvdata           ext4     /dev/block/by-name/nvdata                  flags=backup=1;display="NVDATA"
+/nvram            emmc     /dev/block/by-name/nvram                   flags=backup=1;display="NVRAM"
+/protect_f        ext4     /dev/block/by-name/protect1                flags=backup=1;display="Protect F"
+/protect_s        ext4     /dev/block/by-name/protect2                flags=backup=1;display="Protect S"
+
+/persist          ext4     /dev/block/by-name/persist                 flags=backup=1;display="Persist"
+/persist_image    emmc     /dev/block/by-name/persist                 flags=backup=1;display="Persist Image";flashimg=1
+
+/usbstorage       auto     /dev/block/sdd1  /dev/block/sdd            flags=display="USB Storage";storage;wipeingui;removable;fsflags="utf8"

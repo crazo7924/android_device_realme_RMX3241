@@ -1,10 +1,15 @@
+import /init.recovery.tee.rc
 import /init.recovery.trustonic.rc
+
+on init
+    export LD_LIBRARY_PATH /system/lib64:/vendor/lib64:/vendor/lib64/hw
 
 on fs
     install_keyring
-    export LD_LIBRARY_PATH /system/lib64:/vendor/lib64:/vendor/lib64/hw
-    setprop crypto.ready 1
     write /sys/class/power_supply/usb/otg_switch 1
+    write /sys/class/oplus_chg/usb/otg_switch 1
+
+on post-fs
 
 service keystore_auth /system/bin/keystore_auth
     oneshot
@@ -15,14 +20,13 @@ service keystore_auth /system/bin/keystore_auth
 
 service keystore /system/bin/keystore /tmp/misc/keystore
     user root
-    group root drmrpc readproc
+    group root drmrpc readproc log
     disabled
     seclabel u:r:recovery:s0
 
-#Add for OPPO FBE
 service hal_cryptoeng_oppo /system/bin/vendor.oplus.hardware.cryptoeng@1.0-service
     user root
-    group root drmrpc sdcard_rw sdcard_r
+    group root input sdcard_rw sdcard_r
     disabled
     seclabel u:r:recovery:s0
 
@@ -40,32 +44,38 @@ service gatekeeper-1-0 /system/bin/android.hardware.gatekeeper@1.0-service
 
 on property:hwservicemanager.ready=true
     start hal_cryptoeng_oppo
+    start mobicore
     start keymaster-4-0
     start gatekeeper-1-0
 
 on property:ro.crypto.state=unsupported
-    stop mobicore
     stop hal_cryptoeng_oppo
+    stop mobicore
     stop keymaster-4-0
     stop gatekeeper-1-0
     stop servicemanager
     stop hwservicemanager
 
 on property:ro.crypto.state=unencrypted
-    stop mobicore
     stop hal_cryptoeng_oppo
+    stop mobicore
     stop keymaster-4-0
     stop gatekeeper-1-0
     stop servicemanager
     stop hwservicemanager
 
-on property:twrp.decrypt.done=true && property:twrp.all.users.decrypted=true
-    stop mobicore
+on property:twrp.decrypt.done=true
     stop hal_cryptoeng_oppo
+    stop mobicore
     stop keymaster-4-0
     stop gatekeeper-1-0
     stop servicemanager
     stop hwservicemanager
-    stop gatekeeperd
-    stop gatekeeper-1-0
 
+on post-fs-data
+    mkdir /data/vendor_de 0770 system system
+    mkdir /data/vendor_de/0 0770 system system
+    mkdir /data/vendor_de/0/cryptoeng 0770 system system
+
+on boot
+    start health-hal-2-1
