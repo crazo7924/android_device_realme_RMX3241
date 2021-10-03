@@ -42,8 +42,9 @@ jobs:
               . build/envsetup.sh
               lunch twrp_$DEVICE-eng || true
               export ALLOW_MISSING_DEPENDENCIES=true && mka ${TARGET}image
+              mv $OUT/recovery.img $OUT/twrp-11-${DEVICE}-$(date +%F).img
              
        - uses: actions/upload-artifact@v2
          with:
-           name: twrp-11-$(date -R)
-           path: out/target/product/*/recovery.img
+           name: build-artifacts
+           path: out/target/product/*/twrp*.img
