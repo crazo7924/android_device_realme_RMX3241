@@ -1,17 +1,47 @@
-# Android fstab file.
-# The filesystem that contains the filesystem checker binary (typically /system) cannot
-# specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
+# Logical Partitions
+system /system ext4 ro wait,,avb=vbmeta_system,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
+vendor /vendor ext4 ro wait,,avb,logical,first_stage_mount
+product /product ext4 ro wait,,avb,logical,first_stage_mount
+odm /odm ext4 ro wait,logical,first_stage_mount,nofail
 
-# TODO: Add 'check' as fs_mgr_flags with data partition.
-# Currently we dont have e2fsck compiled. So fs check would failed.
+/dev/block/by-name/recovery /recovery emmc defaults first_stage_mount,nofail,
+/dev/block/by-name/boot /boot emmc defaults first_stage_mount,nofail,
+/dev/block/by-name/userdata /data f2fs noatime,nosuid,nodev,discard,noflush_merge,fsync_mode=nobarrier,reserve_root=134217,resgid=1065,inlinecrypt wait,check,formattable,quota,latemount,resize,reservedsize=128m,checkpoint=fs,fileencryption=aes-256-xts:aes-256-cts:v1
+/dev/block/by-name/cache /cache ext4 noatime,nosuid,nodev,noauto_da_alloc,discard wait,check,formattable,first_stage_mount
 
-#<src>                                           <mnt_point>           <type>   <mnt_flags and options>                                         <fs_mgr_flags>
-system                                           /system               ext4     ro                                                              wait,avb=vbmeta_system,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
-product                                          /product              ext4     ro                                                              wait,avb,logical,first_stage_mount
-vendor                                           /vendor               ext4     ro                                                              wait,avb,logical,first_stage_mount
-odm                                              /odm                  ext4     ro                                                              wait,avb,logical,first_stage_mount
-/dev/block/by-name/userdata                      /data                 f2fs     noatime,nosuid,nodev,discard,noflush_merge,fsync_mode=nobarrier,reserve_root=134217,resgid=1065,inlinecrypt wait,check,formattable,quota,latemount,resize,reservedsize=128m,checkpoint=fs,fileencryption=aes-256-xts:aes-256-cts:v1
+# OPLUS fstab partitions
+my_product /my_product ext4 ro wait,logical,first_stage_mount,nofail
+my_engineering /my_engineering ext4 ro wait,logical,first_stage_mount,nofail
+my_company /my_company ext4 ro,barrier=1 wait,logical,first_stage_mount,nofail
+my_carrier /my_carrier ext4 ro,barrier=1 wait,logical,first_stage_mount,nofail
+my_region /my_region ext4 ro,barrier=1 wait,logical,first_stage_mount,nofail
+my_heytap /my_heytap ext4 ro,barrier=1 wait,logical,first_stage_mount,nofail
+my_stock /my_stock ext4 ro,barrier=1 wait,logical,first_stage_mount,nofail
+my_preload /my_preload ext4 ro wait,logical,first_stage_mount,nofail
 
+# MediaTek specific partitions
+/dev/block/by-name/protect1 /mnt/vendor/protect_f ext4 noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc wait,check,formattable
+/dev/block/by-name/protect2 /mnt/vendor/protect_s ext4 noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc wait,check,formattable
+/dev/block/by-name/nvdata /mnt/vendor/nvdata ext4 noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc wait,check,formattable
+/dev/block/by-name/nvcfg /mnt/vendor/nvcfg ext4 noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc wait,check,formattable
 
-/dev/block/by-name/md_udc                      /metadata             ext4     noatime,nosuid,nodev,discard                                    wait,check,formattable,first_stage_mount
-/dev/block/by-name/misc                          /misc                 emmc     defaults                                                        defaults
+# OPPO specific partitions
+/dev/block/by-name/cdt_engineering /cdt_engineering emmc defaults defaults
+/dev/block/by-name/opporeserve2 /mnt/vendor/opporeserve ext4 noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc wait,check,formattable
+
+# External storages
+/devices/platform/externdevice* auto auto defaults voldmanaged=sdcard1:auto
+/devices/platform/11200000.usb_xhci* auto vfat defaults voldmanaged=usbotg:auto
+
+# Misc
+/dev/block/by-name/frp /persistent emmc defaults defaults
+/dev/block/by-name/nvram /nvram emmc defaults defaults
+/dev/block/by-name/proinfo /proinfo emmc defaults defaults
+/dev/block/by-name/para /para emmc defaults defaults
+/dev/block/by-name/misc /misc emmc defaults defaults
+/dev/block/by-name/vbmeta_vendor /vbmeta_vendor emmc defaults first_stage_mount,nofail,
+/dev/block/by-name/vbmeta_system /vbmeta_system emmc defaults first_stage_mount,nofail,,avb=vbmeta
+/dev/block/by-name/logo /logo emmc defaults defaults
+/dev/block/by-name/boot_para /boot_para emmc defaults defaults
+/dev/block/by-name/dtbo /dtbo emmc defaults defaults
+/dev/block/by-name/vbmeta /vbmeta emmc defaults defaults
