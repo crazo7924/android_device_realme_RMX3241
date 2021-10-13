@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
     inputs:
         tagName:
-            description: 'tagName'     
+            description: 'new tag name'     
             required: true
             default: ''
         tagBody:
-            description: 'tagBody'     
-            required: true
-            default: ''
+            description: 'tag message'     
+            required: false
+            default: 'This is a pre-release'
 
 env:
   TARGET: twrp
@@ -45,7 +45,7 @@ jobs:
          env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
          with:
-           file: "${BuildPath}/out/target/product/${CODENAME}/{recovery.img,*.zip}"
+           file: "${BuildPath}/out/target/product/${CODENAME}/recovery.img"
            release_id: ${{ steps.create_release.outputs.id }}
            tag_name: ${{ github.event.inputs.tagName }}
            overwrite: true
