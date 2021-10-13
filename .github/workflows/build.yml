@@ -25,7 +25,7 @@ jobs:
          uses: rokibhasansagar/slimhub_actions@main
 
        - name: Recovery Compilation
-         uses: PitchBlackRecoveryProject/Recovery-Compiler@production
+         uses: crazo7924/Recovery-Compiler@fix-twrp-11
 
        - name: Create Release
          id: create_release
@@ -37,7 +37,7 @@ jobs:
            release_name: Release ${{ github.event.inputs.tagName }}
            body: ${{ github.event.inputs.tagBody }}
            draft: false
-           prerelease: false
+           prerelease: true
            
        - name: Upload Release Asset
          id: upload-release-asset 
