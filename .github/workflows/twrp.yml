@@ -23,8 +23,8 @@ jobs:
        - name: Recovery Compilation
          uses: crazo7924/Recovery-Compiler@fix-twrp-11
          env:
-           MANIFEST: "git@github.com:minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-11"
-           DT_LINK: "git@github.com:crazo7924/android_device_realme_RMX3241.git"
+           MANIFEST: "https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-11"
+           DT_LINK: "https://github.com/crazo7924/android_device_realme_RMX3241.git"
            VENDOR: "realme"
            CODENAME: "RMX3241"
            TARGET: "recoveryimage"
