@@ -4,7 +4,7 @@
 
 # Currently we dont have e2fsck compiled. So fs check would failed.
 
-# <mount_point>  <fstype>  <device>        <device2>                  <flags>
+# <mount_point>  <fstype>  <device>                                  <flags>
 /boot             emmc     /dev/block/by-name/boot                    flags=backup=1;display="Boot";flashimg=1
 /dtbo             emmc     /dev/block/by-name/dtbo                    flags=backup=1;display="DTBO";flashimg=1
 /recovery         emmc     /dev/block/by-name/recovery                flags=backup=1;display="Recovery"
@@ -24,5 +24,5 @@
 /persist_image    emmc     /dev/block/by-name/persist                 flags=backup=1;display="Persist Image";flashimg=1
 
 # External storages
-/external_sd      auto     /dev/block/mmcblk0p1	/dev/block/mmcblk0		flags=storage;wipeingui;removable;backup=0
-/usb_otg          auto     /dev/block/sdd1	/dev/block/sdd			flags=display="USB-OTG";storage;wipeingui;removable;backup=0
+/external_sd      auto     /dev/block/mmcblk0p1                     	flags=display="External SD card";storage;wipeingui;removable;backup=0
+/usb_otg          auto     /dev/block/sdd1                			      flags=display="USB-OTG";storage;wipeingui;removable;backup=0
