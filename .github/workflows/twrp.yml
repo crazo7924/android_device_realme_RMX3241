@@ -55,3 +55,4 @@ jobs:
            overwrite: true
            verbose: false
            draft: false
+           prerelease: true
