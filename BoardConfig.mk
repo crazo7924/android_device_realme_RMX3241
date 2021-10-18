@@ -150,3 +150,14 @@ TW_Y_OFFSET := 115
 TW_H_OFFSET := -115
 TW_EXCLUDE_APEX := true
 TW_OZIP_DECRYPT_KEY := 1C4C1EA3A12531AE491B21BB31613C11
+# oplus.fstab logical partitions
+TW_INCLUDE_LOGICAL := \
+          my_product \
+          my_engineering \
+          my_company \
+          my_carrier \
+          my_region \
+          my_heytap \
+          my_stock \
+          my_preload \
+          my_manifest
