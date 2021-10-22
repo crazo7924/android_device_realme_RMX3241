@@ -21,7 +21,7 @@ jobs:
          uses: rokibhasansagar/slimhub_actions@main
 
        - name: Recovery Compilation
-         uses: crazo7924/Recovery-Compiler@fix-twrp-11
+         uses: crazo7924/Recovery-Compiler@beta
          env:
            MANIFEST: "https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-11"
            DT_LINK: "https://github.com/crazo7924/android_device_realme_RMX3241.git"
