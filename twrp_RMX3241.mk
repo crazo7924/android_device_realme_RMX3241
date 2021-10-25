@@ -32,6 +32,7 @@ PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,$(LOCAL_PATH)/recovery/roo
 
 # Extra required packages
 PRODUCT_PACKAGES += \
+    libion \
     libion.recovery \
     android.hardware.fastboot@1.0-impl-mock \
     android.hardware.fastboot@1.0-impl-mock.recovery \
@@ -42,11 +43,8 @@ PRODUCT_DEVICE := RMX3241
 PRODUCT_NAME := twrp_RMX3241
 PRODUCT_BRAND := Realme
 PRODUCT_MODEL := 8 5G
-PRODUCT_MANUFACTURER := Realme
+PRODUCT_MANUFACTURER := realme
 
 # HACK: Set vendor patch level
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.build.security_patch=2099-12-31 \
-    ro.bootimage.build.date.utc=0 \
-    ro.build.date.utc=0
-
+    ro.vendor.build.security_patch=2099-12-31
