@@ -1,21 +1,31 @@
 
 # Realme 8 5G / Narzo 30 5G
-[![Building TWRP](https://github.com/crazo7924/android_device_realme_RMX3241/actions/workflows/twrp.yml/badge.svg)](https://github.com/crazo7924/android_device_realme_RMX3241/actions/workflows/twrp.yml)
 ## How to compile it:
 
 To build:
 
-setup envirnoment
-`. build/envsetup.sh`
+0. Setup envirnoment
+```bash
+. build/envsetup.sh
+```
 
-then prepare
-`lunch twrp_RMX3241-eng`
+1. Then prepare
+```bash
+lunch twrp_RMX3241-eng
+```
 
-make the image
-`m recoveryimage`
+2. Don't forget this
+```bash
+export ALLOW_MISSING_DEPENDENCIES=true
+```
 
-## How to find the image built
+3. Finally, make the image
+```bash
+m recoveryimage
+```
 
-`cd $OUT`
-
-see `recovery.img`
+## Locate the built image
+```bash
+cd $OUT
+```
+see **recovery.img**
