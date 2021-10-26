@@ -36,7 +36,8 @@ PRODUCT_PACKAGES += \
     libion.recovery \
     android.hardware.fastboot@1.0-impl-mock \
     android.hardware.fastboot@1.0-impl-mock.recovery \
-    fastbootd
+    fastbootd \
+    twrpfbe
 
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := RMX3241
