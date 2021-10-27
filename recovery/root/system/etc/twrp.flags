@@ -7,11 +7,13 @@
 # <mount_point>  <fstype>  <device>                                  <flags>
 /boot             emmc     /dev/block/by-name/boot                    flags=backup=1;display="Boot";flashimg=1
 /dtbo             emmc     /dev/block/by-name/dtbo                    flags=backup=1;display="DTBO";flashimg=1
-/recovery         emmc     /dev/block/by-name/recovery                flags=backup=1;display="Recovery"
+/recovery         emmc     /dev/block/by-name/recovery                flags=backup=1;display="Recovery";flashimg=1
 /vbmeta           emmc     /dev/block/by-name/vbmeta                  flags=backup=1;display="VBMeta";flashimg=1
+/vbmeta_system    emmc     /dev/block/by-name/vbmeta_system           flags=backup=1;display="VBMeta (system)";flashimg=1
+/vbmeta_vendor    emmc     /dev/block/by-name/vbmeta_vendor           flags=backup=1;display="VBMeta (vendor)";flashimg=1
 
 /cache            ext4     /dev/block/by-name/cache                   flags=backup=1;display="Cache";wipeingui
-/data             f2fs     /dev/block/by-name/userdata                fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption
+/data             f2fs     /dev/block/by-name/userdata                fileencryption=aes-256-xts:aes-256-cts,keydirectory=/metadata/vold/metadata_encryption
 /metadata         ext4     /dev/block/by-name/metadata                flags=display="Metadata"
 
 /nvcfg            ext4     /dev/block/by-name/nvcfg                   flags=backup=1;display="NVCFG"
