@@ -1,10 +1,5 @@
 <!--
     Input:
-        manifest_apuware_vpu.xml
-        manifest_apuware_apusys.xml
-        manifest_apuware_xrp.xml
-        manifest_apuware_utils.xml
-        manifest_apuware_hmp.xml
         manifest_target_level_r.xml
         manifest_sensor_hidl_v2.xml
         manifest_audio.xml
@@ -28,8 +23,6 @@
         manifest_netdagent.xml
         manifest_pq.xml
         manifest_mmservice.xml
-        manifest_mmagent.xml
-        manifest_nwk_opt.xml
         manifest_gnss.xml
         manifest.xml
 -->
@@ -119,12 +112,12 @@
     <hal format="hidl">
         <name>android.hardware.graphics.composer</name>
         <transport>hwbinder</transport>
-        <version>2.2</version>
+        <version>2.1</version>
         <interface>
             <name>IComposer</name>
             <instance>default</instance>
         </interface>
-        <fqname>@2.2::IComposer/default</fqname>
+        <fqname>@2.1::IComposer/default</fqname>
     </hal>
     <hal format="hidl">
         <name>android.hardware.graphics.mapper</name>
@@ -253,16 +246,6 @@
         <fqname>@2.0::ISensors/default</fqname>
     </hal>
     <hal format="hidl">
-        <name>android.hardware.soundtrigger</name>
-        <transport>hwbinder</transport>
-        <version>2.3</version>
-        <interface>
-            <name>ISoundTriggerHw</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@2.3::ISoundTriggerHw/default</fqname>
-    </hal>
-    <hal format="hidl">
         <name>android.hardware.thermal</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
@@ -307,46 +290,6 @@
         <fqname>@1.0::IAee/default</fqname>
     </hal>
     <hal format="hidl">
-        <name>vendor.mediatek.hardware.apuware.apusys</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>INeuronApusys</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::INeuronApusys/default</fqname>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.mediatek.hardware.apuware.hmp</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IApuwareHmp</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::IApuwareHmp/default</fqname>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.mediatek.hardware.apuware.utils</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IApuwareUtils</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::IApuwareUtils/default</fqname>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.mediatek.hardware.apuware.xrp</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>INeuronXrp</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::INeuronXrp/default</fqname>
-    </hal>
-    <hal format="hidl">
         <name>vendor.mediatek.hardware.atci</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
@@ -365,6 +308,16 @@
             <instance>default</instance>
         </interface>
         <fqname>@2.1::IBluetoothAudioProvidersFactory/default</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.mediatek.hardware.camera.atms</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IATMs</name>
+            <instance>default</instance>
+        </interface>
+        <fqname>@1.0::IATMs/default</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.mediatek.hardware.camera.bgservice</name>
@@ -487,16 +440,6 @@
         <fqname>@1.0::IMDMonitorService/default</fqname>
     </hal>
     <hal format="hidl">
-        <name>vendor.mediatek.hardware.mmagent</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IMMAgent</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::IMMAgent/default</fqname>
-    </hal>
-    <hal format="hidl">
         <name>vendor.mediatek.hardware.mms</name>
         <transport>hwbinder</transport>
         <version>1.5</version>
@@ -534,7 +477,7 @@
     <hal format="hidl">
         <name>vendor.mediatek.hardware.mtkradioex</name>
         <transport>hwbinder</transport>
-        <version>2.2</version>
+        <version>2.0</version>
         <interface>
             <name>IMtkRadioEx</name>
             <instance>imsSlot1</instance>
@@ -554,22 +497,22 @@
             <instance>mtkSmartRatSwitch1</instance>
             <instance>mtkSmartRatSwitch2</instance>
         </interface>
-        <fqname>@2.2::IMtkRadioEx/imsSlot1</fqname>
-        <fqname>@2.2::IMtkRadioEx/imsSlot2</fqname>
-        <fqname>@2.2::IMtkRadioEx/mtkAssist1</fqname>
-        <fqname>@2.2::IMtkRadioEx/mtkAssist2</fqname>
-        <fqname>@2.2::IMtkRadioEx/mtkCap1</fqname>
-        <fqname>@2.2::IMtkRadioEx/mtkCap2</fqname>
-        <fqname>@2.2::IMtkRadioEx/mtkEm1</fqname>
-        <fqname>@2.2::IMtkRadioEx/mtkEm2</fqname>
-        <fqname>@2.2::IMtkRadioEx/mtkRcs1</fqname>
-        <fqname>@2.2::IMtkRadioEx/mtkRcs2</fqname>
-        <fqname>@2.2::IMtkRadioEx/mtkSe1</fqname>
-        <fqname>@2.2::IMtkRadioEx/mtkSe2</fqname>
-        <fqname>@2.2::IMtkRadioEx/mtkSlot1</fqname>
-        <fqname>@2.2::IMtkRadioEx/mtkSlot2</fqname>
-        <fqname>@2.2::IMtkRadioEx/mtkSmartRatSwitch1</fqname>
-        <fqname>@2.2::IMtkRadioEx/mtkSmartRatSwitch2</fqname>
+        <fqname>@2.0::IMtkRadioEx/imsSlot1</fqname>
+        <fqname>@2.0::IMtkRadioEx/imsSlot2</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkAssist1</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkAssist2</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkCap1</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkCap2</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkEm1</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkEm2</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkRcs1</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkRcs2</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkSe1</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkSe2</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkSlot1</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkSlot2</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkSmartRatSwitch1</fqname>
+        <fqname>@2.0::IMtkRadioEx/mtkSmartRatSwitch2</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.mediatek.hardware.netdagent</name>
@@ -592,16 +535,6 @@
         <fqname>@1.1::INvram/default</fqname>
     </hal>
     <hal format="hidl">
-        <name>vendor.mediatek.hardware.nwk_opt</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>INwkOpt</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::INwkOpt/default</fqname>
-    </hal>
-    <hal format="hidl">
         <name>vendor.mediatek.hardware.pplagent</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
@@ -614,12 +547,12 @@
     <hal format="hidl">
         <name>vendor.mediatek.hardware.pq</name>
         <transport>hwbinder</transport>
-        <version>2.7</version>
+        <version>2.6</version>
         <interface>
             <name>IPictureQuality</name>
             <instance>default</instance>
         </interface>
-        <fqname>@2.7::IPictureQuality/default</fqname>
+        <fqname>@2.6::IPictureQuality/default</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.mediatek.hardware.videotelephony</name>
@@ -630,16 +563,6 @@
             <instance>default</instance>
         </interface>
         <fqname>@1.0::IVideoTelephony/default</fqname>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.mediatek.hardware.vpu</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>Ivpu</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::Ivpu/default</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.mediatek.hardware.wifi.hostapd</name>
