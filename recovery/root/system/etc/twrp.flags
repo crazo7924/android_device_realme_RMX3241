@@ -6,25 +6,25 @@
 
 # <mount_point>  <fstype>  <device>                                  <flags>
 /boot             emmc     /dev/block/by-name/boot                    flags=backup=1;display="Boot";flashimg=1
+/cache            ext4     /dev/block/by-name/cache                   flags=backup=1;display="Cache";wipeingui
 /dtbo             emmc     /dev/block/by-name/dtbo                    flags=backup=1;display="DTBO";flashimg=1
 /recovery         emmc     /dev/block/by-name/recovery                flags=backup=1;display="Recovery";flashimg=1
 /vbmeta           emmc     /dev/block/by-name/vbmeta                  flags=backup=1;display="VBMeta";flashimg=1
-/vbmeta_system    emmc     /dev/block/by-name/vbmeta_system           flags=backup=1;display="VBMeta (system)";flashimg=1
-/vbmeta_vendor    emmc     /dev/block/by-name/vbmeta_vendor           flags=backup=1;display="VBMeta (vendor)";flashimg=1
 
-/cache            ext4     /dev/block/by-name/cache                   flags=backup=1;display="Cache";wipeingui
-/data             f2fs     /dev/block/by-name/userdata                fileencryption=aes-256-xts:aes-256-cts,keydirectory=/metadata/vold/metadata_encryption
 /metadata         ext4     /dev/block/by-name/metadata                flags=display="Metadata"
+/data             f2fs     /dev/block/by-name/userdata                flags=fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized;keydirectory=/metadata/vold/metadata_encryption
 
-/nvcfg            ext4     /dev/block/by-name/nvcfg                   flags=backup=1;display="NVCFG"
-/nvdata           ext4     /dev/block/by-name/nvdata                  flags=backup=1;display="NVDATA"
-/nvram            emmc     /dev/block/by-name/nvram                   flags=backup=1;display="NVRAM"
-/protect_f        ext4     /dev/block/by-name/protect1                flags=backup=1;display="Protect F"
-/protect_s        ext4     /dev/block/by-name/protect2                flags=backup=1;display="Protect S"
+/nvram            emmc     /dev/block/by-name/nvram                   flags=backup=1;display="NVRAM";backup=1
+/nvcfg            ext4     /dev/block/by-name/nvcfg                   flags=backup=1;display="NVCFG";backup=1;subpartitionof=/nvram
+/nvdata           ext4     /dev/block/by-name/nvdata                  flags=backup=1;display="NVDATA";backup=1;subpartitionof=/nvram
+/protect_f        ext4     /dev/block/by-name/protect1                flags=backup=1;display="Protect F";backup=1
+/protect_s        ext4     /dev/block/by-name/protect2                flags=backup=1;display="Protect S";backup=1
 
-/persist          ext4     /dev/block/by-name/persist                 flags=backup=1;display="Persist"
-/persist_image    emmc     /dev/block/by-name/persist                 flags=backup=1;display="Persist Image";flashimg=1
+/persist          ext4     /dev/block/by-name/persist                 flags=backup=1;display="Persist";backup=1
+
+/vbmeta_system    emmc     /dev/block/by-name/vbmeta_system           flags=backup=1;display="VBMeta (system)";flashimg=1;backup=1
+/vbmeta_vendor    emmc     /dev/block/by-name/vbmeta_vendor           flags=backup=1;display="VBMeta (vendor)";flashimg=1;backup=1
 
 # External storages
 /external_sd      auto     /dev/block/mmcblk0p1                       flags=display="External SD card";storage;wipeingui;removable;backup=0
-/usb_otg          auto     /dev/block/sdd1                            flags=display="USB-OTG";storage;wipeingui;removable;backup=0
+/usb_otg          auto     /dev/block/sdd1                            flags=display="USB-OTG";storage;wipeingui;removable;backup=0;fsflags="utf8"

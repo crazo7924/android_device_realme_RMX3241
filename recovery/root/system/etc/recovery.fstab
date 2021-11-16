@@ -20,7 +20,9 @@ my_preload /my_preload ext4 ro wait,logical,first_stage_mount,nofail
 /dev/block/by-name/dtbo /dtbo emmc defaults defaults
 /dev/block/by-name/recovery /recovery emmc defaults first_stage_mount,nofail,
 /dev/block/by-name/vbmeta /vbmeta emmc defaults defaults
-/dev/block/by-name/userdata /data f2fs noatime,nosuid,nodev,discard,noflush_merge,fsync_mode=nobarrier,reserve_root=134217,resgid=1065,inlinecrypt wait,check,formattable,quota,latemount,resize,reservedsize=128m,checkpoint=fs,fileencryption=aes-256-xts:aes-256-cts:v1
+/dev/block/by-name/vbmeta_system /vbmeta_system emmc defaults first_stage_mount,nofail,,avb=vbmeta
+/dev/block/by-name/vbmeta_vendor /vbmeta_vendor emmc defaults first_stage_mount,nofail,
+/dev/block/by-name/userdata /data f2fs noatime,nosuid,nodev,discard,noflush_merge,fsync_mode=nobarrier,reserve_root=134217,resgid=1065,inlinecrypt wait,check,formattable,quota,latemount,resize,reservedsize=128m,checkpoint=fs,fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption,fsverity
 
 # MediaTek partitions
 #/dev/block/by-name/protect1 /mnt/vendor/protect_f ext4 noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc wait,check,formattable
@@ -31,8 +33,6 @@ my_preload /my_preload ext4 ro wait,logical,first_stage_mount,nofail
 /dev/block/by-name/frp /persistent emmc defaults defaults
 /dev/block/by-name/proinfo /proinfo emmc defaults defaults
 /dev/block/by-name/logo /logo emmc defaults defaults
-/dev/block/by-name/vbmeta_vendor /vbmeta_vendor emmc defaults first_stage_mount,nofail,
-/dev/block/by-name/vbmeta_system /vbmeta_system emmc defaults first_stage_mount,nofail,,avb=vbmeta
 
 # Misc
 /dev/block/by-name/cdt_engineering /cdt_engineering emmc defaults defaults
