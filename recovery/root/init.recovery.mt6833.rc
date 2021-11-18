@@ -3,7 +3,7 @@ import /init.recovery.trustonic.rc
 on fs
     export LD_LIBRARY_PATH /system/lib64:/vendor/lib64:/vendor/lib64/hw
     install_keyring
-
+    setprop crypto.ready 1
     write /sys/class/power_supply/usb/otg_switch 1
     write /sys/class/oplus_chg/usb/otg_switch 1
 
