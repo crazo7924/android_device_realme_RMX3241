@@ -20,13 +20,12 @@ service mobicore /vendor/bin/mcDriverDaemon --P1 /mnt/vendor/persist/mcRegistry 
     disabled
     seclabel u:r:recovery:s0
     
-on init
+on fs
     # Create the mountpoint for /mnt/vendor/persist partition
     mkdir /mnt/vendor/persist 0771 system system
     
-on fs
-   # Mount the persist partition on /mnt/vendor/persist
-   mount /dev/block/by-name/persist /mnt/vendor/persist rw
+    # Mount the persist partition on /mnt/vendor/persist
+    mount /dev/block/by-name/persist /mnt/vendor/persist rw
 
 on post-fs
     chown system system /mnt/vendor/persist
