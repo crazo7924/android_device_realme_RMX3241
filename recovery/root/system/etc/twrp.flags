@@ -20,8 +20,6 @@
 /protect_f        ext4     /dev/block/by-name/protect1                flags=backup=1;display="Protect F";backup=1
 /protect_s        ext4     /dev/block/by-name/protect2                flags=backup=1;display="Protect S";backup=1
 
-/persist          ext4     /dev/block/by-name/persist                 flags=backup=1;display="Persist";backup=1
-
 /vbmeta_system    emmc     /dev/block/by-name/vbmeta_system           flags=backup=1;display="VBMeta (system)";flashimg=1;backup=1
 /vbmeta_vendor    emmc     /dev/block/by-name/vbmeta_vendor           flags=backup=1;display="VBMeta (vendor)";flashimg=1;backup=1
 
