@@ -1,22 +1,6 @@
 firmware_directories /etc/firmware/ /odm/firmware/ /vendor/firmware/ /firmware/image/
 uevent_socket_rcvbuf_size 16M
 
-subsystem graphics
-    devname uevent_devpath
-    dirname /dev/graphics
-
-subsystem drm
-    devname uevent_devpath
-    dirname /dev/dri
-
-subsystem input
-    devname uevent_devpath
-    dirname /dev/input
-
-subsystem sound
-    devname uevent_devpath
-    dirname /dev/snd
-
 # ueventd can only set permissions on device nodes and their associated
 # sysfs attributes, not on arbitrary paths.
 #
