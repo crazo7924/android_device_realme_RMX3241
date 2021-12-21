@@ -25,7 +25,7 @@ on fs
     mkdir /mnt/vendor/persist 0771 system system
     
     # Mount the persist partition on /mnt/vendor/persist
-    mount /dev/block/by-name/persist /mnt/vendor/persist rw
+    mount ext4 /dev/block/by-name/persist /mnt/vendor/persist rw
 
 on post-fs
     chown system system /mnt/vendor/persist
