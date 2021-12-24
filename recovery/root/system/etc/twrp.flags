@@ -24,5 +24,5 @@
 /vbmeta_vendor    emmc     /dev/block/by-name/vbmeta_vendor           flags=backup=1;display="VBMeta (vendor)";flashimg=1;backup=1
 
 # External storages
-/external_sd      auto     /dev/block/mmcblk0p1                       flags=display="External SD card";storage;wipeingui;removable;backup=0
+/external_sd      vfat     /dev/block/mmcblk0p1                       flags=display="External SD card";storage;wipeingui;removable;backup=0
 /usb_otg          auto     /dev/block/sdd1                            flags=display="USB-OTG";storage;wipeingui;removable;backup=0;fsflags="utf8"
