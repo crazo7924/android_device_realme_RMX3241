@@ -23,7 +23,6 @@ PRODUCT_USE_DYNAMIC_PARTITIONS := true
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 
 # Inherit from TWRP common configurations
 $(call inherit-product, vendor/twrp/config/common.mk)
@@ -47,3 +46,6 @@ PRODUCT_MANUFACTURER := realme
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.build.security_patch=2099-12-31
 
+PRODUCT_SYSTEM_PROPERTY_BLACKLIST := \
+    ro.product.device \
+    ro.product.name
