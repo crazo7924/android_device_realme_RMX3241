@@ -1,9 +1,3 @@
-# Logical partitions
-system		/system		ext4
-vendor		/vendor		ext4
-product		/product	ext4	display="Product";logical,first_stage_mount
-odm		/odm		ext4	display="ODM";logical,first_stage_mount
-
 # Block device partitions
 /metadata		ext4	/dev/block/by-name/metadata
 /data			f2fs	/dev/block/by-name/userdata		flags=fileencryption=aes-256-xts:aes-256-cts:v2;keydirectory=/metadata/vold/metadata_encryption
