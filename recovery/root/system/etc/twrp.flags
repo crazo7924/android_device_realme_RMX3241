@@ -5,7 +5,7 @@
 /boot			emmc	/dev/block/by-name/boot			flags=backup=1;flashimg=1
 /recovery		emmc	/dev/block/by-name/recovery		flags=backup=1;flashimg=1
 /dtbo			emmc	/dev/block/by-name/dtbo			flags=display="DTBO"
-/vbmeta			emmc	/dev/block/by-name/vbmeta		flags=display="VBMeta"
+/vbmeta			emmc	/dev/block/by-name/vbmeta		flags=display="VBMeta";flashimg=1
 /vbmeta_system		emmc	/dev/block/by-name/vbmeta_system	flags=display="VBMeta (System)"
 /vbmeta_vendor		emmc	/dev/block/by-name/vbmeta_vendor	flags=display="VBMeta (Vendor)"
 
