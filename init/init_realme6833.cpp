@@ -28,10 +28,9 @@
  */
 
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
-#include <sys/_system_properties.h>
-
 #include <android-base/logging.h>
 #include <android-base/properties.h>
+#include <sys/_system_properties.h>
 
 #include "property_service.h"
 #include "vendor_init.h"
@@ -41,7 +40,6 @@ using android::base::GetProperty;
 void property_override(char const prop[], char const value[]);
 
 void vendor_load_properties() {
-
   // for realme OTAs
   property_override("ro.product.name", "RE513CL1");
 
@@ -51,6 +49,7 @@ void vendor_load_properties() {
     LOG(DEBUG) << "This device is realme narzo 30 5G" << std::endl;
 
     property_override("ro.product.device", "RMX3242");
+    property_override("ro.product.model", "RMX3242");
     property_override("ro.separate.soft", "20795");
   }
 
@@ -58,11 +57,11 @@ void vendor_load_properties() {
     LOG(DEBUG) << "This device is realme 8 5G" << std::endl;
 
     property_override("ro.product.device", "RMX3241");
+    property_override("ro.product.model", "RMX3241");
     property_override("ro.separate.soft", "206FF");
   }
 
-  if (prjname == "")
-    LOG(ERROR) << "Property prjname not found." << std::endl;
+  if (prjname == "") LOG(ERROR) << "Property prjname not found." << std::endl;
 }
 
 void property_override(char const prop[], char const value[]) {
