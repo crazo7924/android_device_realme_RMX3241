@@ -1,5 +1,5 @@
 /*
-   Copyright (C) 2017-2021 The Android Open Source Project
+   Copyright (C) 2017-2022 The Android Open Source Project
 
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
@@ -27,32 +27,50 @@
    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
+#include <sys/_system_properties.h>
+
 #include <android-base/logging.h>
 #include <android-base/properties.h>
 
-#include <string>
-
+#include "property_service.h"
 #include "vendor_init.h"
 
 using android::base::GetProperty;
-using android::base::SetProperty;
+
+void property_override(char const prop[], char const value[]);
 
 void vendor_load_properties() {
+
   // for realme OTAs
-  SetProperty("ro.product.name", "RE513CL1");
+  property_override("ro.product.name", "RE513CL1");
 
   std::string prjname = GetProperty("ro.boot.prjname", "");
 
   if (prjname == "133013") {
-    SetProperty("ro.product.device", "RMX3242");
-    SetProperty("ro.separate.soft", "20795");
+    LOG(DEBUG) << "This device is realme narzo 30 5G" << std::endl;
+
+    property_override("ro.product.device", "RMX3242");
+    property_override("ro.separate.soft", "20795");
   }
 
   if (prjname == "132863") {
-    SetProperty("ro.product.device", "RMX3241");
-    SetProperty("ro.separate.soft", "206FF");
+    LOG(DEBUG) << "This device is realme 8 5G" << std::endl;
+
+    property_override("ro.product.device", "RMX3241");
+    property_override("ro.separate.soft", "206FF");
   }
 
   if (prjname == "")
     LOG(ERROR) << "Property prjname not found." << std::endl;
+}
+
+void property_override(char const prop[], char const value[]) {
+  prop_info *pi;
+
+  pi = (prop_info *)__system_property_find(prop);
+  if (pi)
+    __system_property_update(pi, value, strlen(value));
+  else
+    __system_property_add(prop, strlen(prop), value, strlen(value));
 }
