@@ -31,6 +31,7 @@ PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,$(LOCAL_PATH)/recovery/roo
 
 # Extra required packages
 PRODUCT_PACKAGES += \
+    fastbootd \
     libion.recovery \
     android.hardware.fastboot@1.0-impl-mock \
     android.hardware.fastboot@1.0-impl-mock.recovery
