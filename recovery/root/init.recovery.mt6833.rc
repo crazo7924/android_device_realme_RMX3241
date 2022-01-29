@@ -3,8 +3,6 @@ import /init.recovery.trustonic.rc
 on fs
     mkdir /tmp/misc/keystore
     install_keyring
-    write /sys/class/power_supply/usb/otg_switch 1
-    write /sys/class/oplus_chg/usb/otg_switch 1
 
 service keystore_auth /system/bin/keystore_auth
     oneshot
