@@ -49,7 +49,7 @@ void vendor_load_properties() {
     LOG(DEBUG) << "This device is Realme Narzo 30 5G" << std::endl;
 
     property_override("ro.product.name", "RMX3242");
-    property_override("ro.product.model", "Realme Narzo 30 5G");
+    property_override("ro.product.model", "RMX3242");
     property_override("ro.separate.soft", "20795");
   }
 
@@ -57,7 +57,7 @@ void vendor_load_properties() {
     LOG(DEBUG) << "This device is Realme 8 5G" << std::endl;
 
     property_override("ro.product.name", "RMX3241");
-    property_override("ro.product.model", "Realme 8 5G");
+    property_override("ro.product.model", "RMX3241");
     property_override("ro.separate.soft", "206FF");
   }
 
