@@ -1,40 +1,40 @@
 import /init.recovery.trustonic.rc
 
-on fs
-    mkdir /tmp/misc/keystore
-    install_keyring
-
 service keystore_auth /system/bin/keystore_auth
     oneshot
     user system
     group root
     seclabel u:r:recovery:s0
 
+# keystore is started and stopped on demand by TWRP
 service keystore /system/bin/keystore /tmp/misc/keystore
     user root
     group root drmrpc readproc log
+    disabled
     seclabel u:r:recovery:s0
 
-on property:hwservicemanager.ready=true
+on property:ro.crypto.state=encrypted && property:ro.crypto.type=file
+    install_keyring
+    setprop crypto.ready 1
+
+on property:hwservicemanager.ready=true && property:crypto.ready=1
     start hal_cryptoeng_oppo
     start keymaster-4-0
     start gatekeeper-1-0
 
 on property:ro.crypto.state=unsupported
+    setprop crypto.ready 0
     stop hal_cryptoeng_oppo
     stop mobicore
     stop keymaster-4-0
     stop gatekeeper-1-0
-    stop servicemanager
-    stop hwservicemanager
 
 on property:ro.crypto.state=unencrypted
+    setprop crypto.ready 0
     stop hal_cryptoeng_oppo
     stop mobicore
     stop keymaster-4-0
     stop gatekeeper-1-0
-    stop servicemanager
-    stop hwservicemanager
 
 on post-fs-data
     mkdir /data/vendor_de 0770 system system
@@ -63,9 +63,9 @@ service keymaster-4-0 /vendor/bin/hw/android.hardware.keymaster@4.0-service.trus
     seclabel u:r:recovery:s0
 
 on property:twrp.decrypt.done=true && property:twrp.all.users.decrypted=true
+    setprop crypto.ready 0
     stop hal_cryptoeng_oppo
     stop mobicore
-    stop servicemanager
-    stop hwservicemanager
     stop keymaster-4-0
     stop gatekeeper-1-0
+
