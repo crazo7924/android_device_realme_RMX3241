@@ -37,11 +37,11 @@ my_preload /my_preload ext4 ro wait,logical,first_stage_mount,nofail
 #/dev/block/by-name/lk /bootloader emmc defaults defaults
 #/dev/block/by-name/lk2 /bootloader2 emmc defaults defaults
 #/dev/block/by-name/para /para emmc defaults defaults
-#/dev/block/by-name/misc /misc emmc defaults defaults
 #/dev/block/by-name/otp /otp emmc defaults defaults
 
 /dev/block/by-name/recovery /recovery emmc defaults first_stage_mount,nofail,
 /dev/block/by-name/boot /boot emmc defaults first_stage_mount,nofail,
+/dev/block/by-name/misc /misc emmc defaults defaults
 
 /dev/block/by-name/vbmeta /vbmeta emmc defaults defaults
 /dev/block/by-name/vbmeta_vendor /vbmeta_vendor emmc defaults first_stage_mount,nofail,
