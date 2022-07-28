@@ -6,34 +6,27 @@ service keystore_auth /system/bin/keystore_auth
     group root
     seclabel u:r:recovery:s0
 
-# keystore is started and stopped on demand by TWRP
-service keystore /system/bin/keystore /tmp/misc/keystore
-    user root
-    group root drmrpc readproc log
-    disabled
-    seclabel u:r:recovery:s0
-
 on property:ro.crypto.state=encrypted && property:ro.crypto.type=file
     install_keyring
     setprop crypto.ready 1
 
 on property:hwservicemanager.ready=true && property:crypto.ready=1
-    start hal_cryptoeng_oppo
-    start keymaster-4-0
+    start cryptoeng_oplus
+    start keymaster-4-1
     start gatekeeper-1-0
 
 on property:ro.crypto.state=unsupported
     setprop crypto.ready 0
-    stop hal_cryptoeng_oppo
+    stop cryptoeng_oplus
     stop mobicore
-    stop keymaster-4-0
+    stop keymaster-4-1
     stop gatekeeper-1-0
 
 on property:ro.crypto.state=unencrypted
     setprop crypto.ready 0
-    stop hal_cryptoeng_oppo
+    stop cryptoeng_oplus
     stop mobicore
-    stop keymaster-4-0
+    stop keymaster-4-1
     stop gatekeeper-1-0
 
 on post-fs-data
@@ -50,13 +43,13 @@ service gatekeeper-1-0 /system/bin/hw/android.hardware.gatekeeper@1.0-service
     disabled
     seclabel u:r:recovery:s0
 
-service hal_cryptoeng_oppo /vendor/bin/hw/vendor.oplus.hardware.cryptoeng@1.0-service
+service cryptoeng_oplus /vendor/bin/hw/vendor.oplus.hardware.cryptoeng@1.0-service
     user root
     group root input sdcard_rw sdcard_r
     disabled
     seclabel u:r:recovery:s0
 
-service keymaster-4-0 /vendor/bin/hw/android.hardware.keymaster@4.0-service.trustonic
+service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.trustonic
     user root
     group root drmrpc
     disabled
@@ -64,8 +57,8 @@ service keymaster-4-0 /vendor/bin/hw/android.hardware.keymaster@4.0-service.trus
 
 on property:twrp.decrypt.done=true && property:twrp.all.users.decrypted=true
     setprop crypto.ready 0
-    stop hal_cryptoeng_oppo
+    stop cryptoeng_oplus
     stop mobicore
-    stop keymaster-4-0
+    stop keymaster-4-1
     stop gatekeeper-1-0
 
