@@ -6,19 +6,19 @@
 # 1 "<built-in>" 2
 # 1 "vendor/mediatek/proprietary/hardware/fstab/mt6833/fstab.in.mt6833" 2
 # 141 "vendor/mediatek/proprietary/hardware/fstab/mt6833/fstab.in.mt6833"
-system /system ext4 ro wait,,avb=vbmeta_system,logical,first_stage_mount
-vendor /vendor ext4 ro wait,,avb,logical,first_stage_mount
-product /product ext4 ro wait,,avb,logical,first_stage_mount
-odm /odm ext4 ro wait,logical,first_stage_mount
+system /system auto ro wait,,avb=vbmeta_system,logical,first_stage_mount
+vendor /vendor auto ro wait,,avb,logical,first_stage_mount
+product /product auto ro wait,,avb,logical,first_stage_mount
+odm /odm auto ro wait,logical,first_stage_mount
 
-my_product /my_product ext4 ro wait,logical,first_stage_mount,nofail
-my_engineering /my_engineering ext4 ro wait,logical,first_stage_mount,nofail
-my_company /my_company ext4 ro,barrier=1 wait,logical,first_stage_mount,nofail
-my_carrier /my_carrier ext4 ro,barrier=1 wait,logical,first_stage_mount,nofail
-my_region /my_region ext4 ro,barrier=1 wait,logical,first_stage_mount,nofail
-my_heytap /my_heytap ext4 ro,barrier=1 wait,logical,first_stage_mount,nofail
-my_stock /my_stock ext4 ro,barrier=1 wait,logical,first_stage_mount,nofail
-my_preload /my_preload ext4 ro wait,logical,first_stage_mount,nofail
+my_product /my_product auto ro wait,logical,first_stage_mount,nofail
+my_engineering /my_engineering auto ro wait,logical,first_stage_mount,nofail
+my_company /my_company auto ro,barrier=1 wait,logical,first_stage_mount,nofail
+my_carrier /my_carrier auto ro,barrier=1 wait,logical,first_stage_mount,nofail
+my_region /my_region auto ro,barrier=1 wait,logical,first_stage_mount,nofail
+my_heytap /my_heytap auto ro,barrier=1 wait,logical,first_stage_mount,nofail
+my_stock /my_stock auto ro,barrier=1 wait,logical,first_stage_mount,nofail
+my_preload /my_preload auto ro wait,logical,first_stage_mount,nofail
 
 /dev/block/by-name/metadata /metadata ext4 noatime,nosuid,nodev,discard wait,check,formattable,first_stage_mount
 /dev/block/by-name/cache /cache ext4 noatime,nosuid,nodev,noauto_da_alloc,discard wait,check,formattable,first_stage_mount
