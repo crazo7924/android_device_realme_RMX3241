@@ -15,13 +15,13 @@
 //
 
 cc_library_static {
-    name: "libinit_realme6833",
+    name: "libinit_apollob",
     recovery_available: true,
     include_dirs: [
-        "system/core/base/include",
+        "system/libbase/include",
         "system/core/init",
     ],
-    srcs: ["init_realme6833.cpp"],
+    srcs: ["init_apollob.cc"],
     cflags: [
         "-Wall",
         "-Werror",
