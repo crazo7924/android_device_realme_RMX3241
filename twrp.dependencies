@@ -1,8 +1,1 @@
-[
-  {
-    "remote": "github",
-    "repository": "crazo7924/android_kernel_realme_apollob",
-    "target_path": "kernel/realme/apollob",
-    "branch": "android-12.1"
-  }
-]
+[]
