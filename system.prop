@@ -15,8 +15,8 @@ ro.mediatek.platform=MT6833
 ro.vendor.mtk_trustonic_tee_support=1
 
 # USB
+persist.sys.usb.config=mtp,adb
 ro.sys.usb.bicr=no
-ro.sys.usb.charging.only=yes
 ro.sys.usb.mtp.whql.enable=0
 ro.sys.usb.storage.type=mtp
 
