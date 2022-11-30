@@ -15,13 +15,13 @@
 //
 
 cc_library_static {
-    name: "libinit_apollob",
+    name: "libinit_RMX3241",
     recovery_available: true,
     include_dirs: [
         "system/libbase/include",
         "system/core/init",
     ],
-    srcs: ["init_apollob.cc"],
+    srcs: ["init_RMX3241.cc"],
     cflags: [
         "-Wall",
         "-Werror",

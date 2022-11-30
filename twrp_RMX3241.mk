@@ -37,10 +37,10 @@ PRODUCT_PACKAGES += \
     libion.recovery
 
 ## Device identifier. This must come after all inclusions
-PRODUCT_DEVICE := apollob
-PRODUCT_NAME := twrp_apollob
+PRODUCT_DEVICE := RMX3241
+PRODUCT_NAME := twrp_RMX3241
 PRODUCT_BRAND := realme
-PRODUCT_MODEL := RM6833
+PRODUCT_MODEL := RE513CL1
 PRODUCT_MANUFACTURER := realme
 
 # HACK: Set vendor patch level
