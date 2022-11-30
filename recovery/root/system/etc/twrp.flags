@@ -9,18 +9,18 @@
 /boot			emmc	/dev/block/by-name/boot				flags=backup=1;flashimg=1
 /recovery		emmc	/dev/block/by-name/recovery			flags=backup=1;flashimg=1
 /dtbo			emmc	/dev/block/by-name/dtbo				flags=display="DTBO"
-/vbmeta			emmc	/dev/block/by-name/vbmeta			flags=display="VBMeta";flashimg=1
-/vbmeta_system		emmc	/dev/block/by-name/vbmeta_system		flags=display="VBMeta (System)"
-/vbmeta_vendor		emmc	/dev/block/by-name/vbmeta_vendor		flags=display="VBMeta (Vendor)"
+/vbmeta			emmc	/dev/block/by-name/vbmeta			flags=display="vbmeta";flashimg=1
+/vbmeta_system		emmc	/dev/block/by-name/vbmeta_system		flags=display="vbmeta (system)"
+/vbmeta_vendor		emmc	/dev/block/by-name/vbmeta_vendor		flags=display="vbmeta (vendor)"
 /misc			emmc	/dev/block/by-name/misc
 
 # External storages
-/external_sd		auto	/dev/block/mmcblk1p1	/dev/block/mmcblk1	flags=display="Micro SD Card";storage;wipeingui;removable
-/usb_otg		auto	/dev/block/sdd1		/dev/block/sdd		flags=display="USB-OTG";storage;wipeingui;removable;backup=0
+/external_sd		auto	/dev/block/mmcblk0p1				flags=display="Micro SD Card";storage;wipeingui;removable;backup=0
+/usb_otg		auto	/dev/block/sdd1					flags=display="USB-OTG";storage;wipeingui;removable;backup=0
 
 # Flashable logical partitions
-/system_image		emmc	/dev/block/bootdevice/by-name/system		flags=backup=1;display="System Image";flashimg=1
-/system_ext_image	emmc	/dev/block/bootdevice/by-name/system_ext	flags=backup=1;display="System_ext Image";flashimg=1
-/vendor_image		emmc	/dev/block/bootdevice/by-name/vendor		flags=backup=1;display="Vendor Image";flashimg=1
-/product_image		emmc	/dev/block/bootdevice/by-name/product		flags=backup=1;display="Product Image";flashimg=1
-/odm_image		emmc	/dev/block/bootdevice/by-name/odm		flags=backup=1;display="ODM Image";flashimg=1
+/system_image		emmc	system						flags=backup=1;display="System Image";flashimg=1
+/system_ext_image	emmc	system_ext					flags=backup=1;display="System_ext Image";flashimg=1
+/vendor_image		emmc	vendor						flags=backup=1;display="Vendor Image";flashimg=1
+/product_image		emmc	product						flags=backup=1;display="Product Image";flashimg=1
+/odm_image		emmc	odm						flags=backup=1;display="ODM Image";flashimg=1
