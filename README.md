@@ -11,7 +11,7 @@ To build:
 
 1. Then prepare
 ```bash
-lunch twrp_apollob-eng
+lunch twrp_RMX3241-eng
 ```
 
 2. Don't forget this
